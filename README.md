@@ -30,7 +30,7 @@ git push origin main
 ```text
 src/config.mjs                    Dados da clínica, fotos, tratamentos e galeria
 src/page.mjs                      Documento HTML, SEO e composição das seções
-src/components/header-hero.mjs    Header e Hero
+src/components/hero.mjs           Hero
 src/components/care.mjs           Introdução, tratamentos, diferenciais,
                                  profissional, etapas e depoimentos
 src/components/results.mjs        Comparação interativa antes/depois
@@ -38,7 +38,7 @@ src/components/clinic.mjs         Galeria, localização e mapa
 src/components/contact-footer.mjs CTA, footer e diálogo de orientação
 src/components/shared.mjs        Botões, ícones, marca e imagens reutilizáveis
 assets/css/styles.css            Estilos e responsividade
-assets/js/main.js                Menu, comparação e faixa da Hero
+assets/js/main.js                Comparação e faixa da Hero
 assets/js/gallery.js             Galeria contínua e pausas
 assets/js/carousels.js           Tratamentos, popups e depoimentos
 assets/images/                   Fotos futuras e favicon vetorial
@@ -86,7 +86,6 @@ Google Maps. Com a URL configurada, abre o vídeo em nova aba.
 
 ## Interações e acessibilidade
 
-- Menu mobile com Escape, controle de foco e fechamento ao escolher uma seção.
 - Antes/depois sobreposto em formato 1:1, com mouse, touch e range para teclado.
 - Três resultados com tabs e navegação por setas, Home e End.
 - Galeria com dez fotos quadradas abaixo dos contatos e do mapa, movimento
@@ -153,3 +152,12 @@ A faixa da Hero percorre toda a largura do banner da direita para a esquerda.
 A galeria mantém movimento contínuo na mesma direção. Passar o mouse sobre
 as seções não interrompe o automático; os controles explícitos permitem pausar.
 Não são exibidas mensagens de movimento reduzido nos carrosséis.
+
+O header foi removido. A navegação permanece no rodapé, com o logo enviado.
+A introdução tem moldura assimétrica em rosé; os títulos dos tratamentos estão
+em negrito. Na área da clínica, a ação principal é Como chegar, com fundo escuro.
+As referências a projeto fictício foram retiradas do rodapé e da descrição do
+negócio; os depoimentos criados para composição continuam identificados como
+exemplos sem vínculo com pacientes reais.
+A galeria acumula frações de pixel antes de atualizar o scroll, garantindo
+movimento em navegadores que arredondam scrollLeft para valores inteiros.

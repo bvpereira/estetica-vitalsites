@@ -4,7 +4,7 @@ import { renderPage, structuredData } from '../src/page.mjs';
 import { clinic, maps, whatsappUrl, treatments } from '../src/config.mjs';
 import { validateConfig, validateHtml } from '../scripts/validate.mjs';
 import { escape, photo } from '../src/components/shared.mjs';
-import { wrapPosition } from '../assets/js/gallery.js';
+import { wrapPosition, advanceDistance } from '../assets/js/gallery.js';
 import { faqItems } from '../src/faq.mjs';
 
 test('contatos e URLs mantêm os dados centralizados, inclusive acentos nas mensagens', () => {
@@ -39,9 +39,21 @@ test('HTML de produção tem navegação e referências acessíveis válidas sem
   const html = renderPage();
   validateHtml(html);
   for (const id of ['inicio', 'introducao', 'tratamentos', 'sobre', 'resultados', 'clinica', 'contato']) assert.ok(html.includes(`id="${id}"`));
-  assert.ok(html.includes('Depoimentos fictícios'));
-  assert.ok(html.includes('Clínica fictícia'));
+  assert.ok(html.includes('Depoimentos de exemplo, sem vínculo com pacientes reais.'));
+  assert.ok(!html.includes('Clínica fictícia'));
   assert.ok(html.includes('role="tablist"'));
+});
+
+test('galeria acumula deslocamentos menores que um pixel em navegadores com scroll inteiro', () => {
+  let scroll = 0;
+  let remainder = 0;
+  for (let frame = 0; frame < 120; frame++) {
+    const step = advanceDistance(16, remainder);
+    scroll += step.pixels;
+    remainder = step.remainder;
+  }
+  assert.equal(scroll, 67);
+  assert.ok(Math.abs(remainder - .2) < .001);
 });
 test('dados estruturados não apresentam avaliações fictícias nem credenciais inventadas', () => {
   const data = structuredData();

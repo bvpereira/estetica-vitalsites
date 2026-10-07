@@ -5,6 +5,12 @@ export function wrapPosition(position, start, length) {
   return start + ((position - start) % length + length) % length;
 }
 
+export function advanceDistance(elapsed, remainder = 0) {
+  const distance = elapsed * .035 + remainder;
+  const pixels = Math.floor(distance);
+  return { pixels, remainder: distance - pixels };
+}
+
 export function initGallery(gallery, reducedMotion) {
   const viewport = gallery.querySelector('.gallery-viewport');
   const track = gallery.querySelector('.gallery-track');
@@ -37,6 +43,7 @@ export function initGallery(gallery, reducedMotion) {
   let cycle = 0;
   let frame = 0;
   let lastTime = 0;
+  let remainder = 0;
   let manuallyPaused = false;
   let touching = false;
   let visible = false;
@@ -91,8 +98,12 @@ export function initGallery(gallery, reducedMotion) {
     if (!active()) { lastTime = 0; return; }
     if (lastTime && time > holdUntil) {
       const elapsed = Math.min(time - lastTime, 50);
-      viewport.scrollLeft = wrapPosition(viewport.scrollLeft + elapsed * .035, start, cycle);
-      synchronize();
+      const step = advanceDistance(elapsed, remainder);
+      remainder = step.remainder;
+      if (step.pixels) {
+        viewport.scrollLeft = wrapPosition(viewport.scrollLeft + step.pixels, start, cycle);
+        synchronize();
+      }
     }
     lastTime = time;
     frame = requestAnimationFrame(tick);

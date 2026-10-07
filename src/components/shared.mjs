@@ -31,9 +31,6 @@ export function whatsapp(label, className = 'button', message) {
 export function instagram(label, className = 'text-link') {
   return `<a class="${className}" href="${escape(clinic.instagram.url)}" target="_blank" rel="noopener noreferrer">${escape(label)}${icon('instagram')}</a>`;
 }
-export function brand() {
-  return `<a href="#inicio" class="brand" aria-label="${escape(clinic.name)} — início"><span class="brand-name">aura<span class="brand-dot">.</span></span><span class="brand-description">Clínica Estética</span></a>`;
-}
 export function eyebrow(text, number = '') {
   return `<p class="eyebrow">${number ? `<span>${number}</span>` : ''}${text}</p>`;
 }

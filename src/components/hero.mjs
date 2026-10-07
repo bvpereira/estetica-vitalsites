@@ -1,17 +1,5 @@
-import { clinic, images, navigation, heroValues } from '../config.mjs';
-import { brand, escape, eyebrow, icon, instagram, photo, whatsapp } from './shared.mjs';
-
-export function header() {
-  return `<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
-  <header class="site-header" id="site-header"><div class="header-inner">
-    ${brand()}
-    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-navigation"><span class="menu-lines" aria-hidden="true"></span><span class="menu-text">Menu</span></button>
-    <nav class="main-navigation" id="main-navigation" aria-label="Navegação principal">
-      <div class="nav-links">${navigation.map(([id, label]) => `<a href="#${id}">${label}</a>`).join('')}</div>
-      <div class="header-actions">${instagram(clinic.instagram.handle, 'header-instagram')}${whatsapp('Agendar avaliação', 'button button-small')}</div>
-    </nav>
-  </div></header>`;
-}
+import { clinic, images, heroValues } from '../config.mjs';
+import { escape, eyebrow, icon, photo, whatsapp } from './shared.mjs';
 
 export function hero() {
   return `<section class="hero hero-dark" id="inicio" aria-labelledby="hero-title">

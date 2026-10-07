@@ -4,38 +4,6 @@ import { initTreatments, initTreatmentDialogs, initTestimonials } from './carous
 import { initFaq } from './faq.js';
 
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-const header = document.querySelector('.site-header');
-const navigation = document.querySelector('.main-navigation');
-const menuButton = document.querySelector('.menu-toggle');
-
-function closeMenu({ returnFocus = false } = {}) {
-  menuButton.setAttribute('aria-expanded', 'false');
-  navigation.classList.remove('is-open');
-  document.body.classList.remove('menu-open');
-  if (returnFocus) menuButton.focus();
-}
-menuButton.addEventListener('click', () => {
-  const open = menuButton.getAttribute('aria-expanded') !== 'true';
-  menuButton.setAttribute('aria-expanded', String(open));
-  navigation.classList.toggle('is-open', open);
-  document.body.classList.toggle('menu-open', open);
-});
-navigation.querySelectorAll('a').forEach(link => link.addEventListener('click', () => closeMenu()));
-document.addEventListener('keydown', event => {
-  if (menuButton.getAttribute('aria-expanded') !== 'true') return;
-  if (event.key === 'Escape') { closeMenu({ returnFocus: true }); return; }
-  if (event.key !== 'Tab') return;
-  const controls = [menuButton, ...navigation.querySelectorAll('a')];
-  const first = controls[0];
-  const last = controls.at(-1);
-  if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
-  else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
-});
-window.matchMedia('(min-width: 1151px)').addEventListener('change', event => { if (event.matches) closeMenu(); });
-function updateHeader() { header.classList.toggle('is-scrolled', window.scrollY > 12); }
-window.addEventListener('scroll', updateHeader, { passive: true });
-updateHeader();
-
 // Range gives keyboard and assistive technology access; pointers control the full surface.
 document.querySelectorAll('[data-stage]').forEach(stage => {
   const range = stage.querySelector('[data-range]');

@@ -1,5 +1,5 @@
 import { clinic } from './config.mjs';
-import { header, hero } from './components/header-hero.mjs';
+import { hero } from './components/hero.mjs';
 import { introduction, treatmentSection, differentials, about, howItWorks, testimonials } from './components/care.mjs';
 import { beforeAfter } from './components/results.mjs';
 import { clinicSection } from './components/clinic.mjs';
@@ -12,7 +12,7 @@ export function structuredData() {
   return {
     '@context': 'https://schema.org', '@type': 'LocalBusiness',
     name: clinic.name, url: clinic.siteUrl, telephone: `+${clinic.whatsapp}`,
-    description: 'Clínica de estética facial e corporal em Rio das Ostras, com protocolos personalizados e foco na naturalidade. Projeto demonstrativo de clínica fictícia.',
+    description: 'Clínica de estética facial e corporal em Rio das Ostras, com protocolos personalizados e foco na naturalidade.',
     address: { '@type': 'PostalAddress', streetAddress: `${clinic.address.street}, ${clinic.address.district}`, addressLocality: clinic.address.city, addressRegion: clinic.address.region, addressCountry: clinic.address.country },
     sameAs: [clinic.instagram.url],
     openingHoursSpecification: clinic.hours.filter(hour => hour.opens).map(hour => ({ '@type': 'OpeningHoursSpecification', dayOfWeek: hour.days.map(day => `https://schema.org/${day}`), opens: hour.opens, closes: hour.closes })),
@@ -48,7 +48,7 @@ export function renderPage() {
   <script type="module" src="/assets/js/main.js"></script>
 </head>
 <body>
-${header()}
+<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
 <main id="conteudo">
 ${hero()}
 ${introduction()}
