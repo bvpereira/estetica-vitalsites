@@ -34,10 +34,10 @@ export const images = {
 export const heroValues = ['Atendimento personalizado', 'Tecnologia avançada', 'Resultados naturais', 'Estética facial e corporal', 'Cuidado em cada etapa', 'Sua essência em primeiro lugar'];
 
 export const amenities = [
-  { icon: 'accessibility', label: 'Banheiro adaptado' },
+  { icon: 'accessibility', src: '/assets/images/banheiro-adaptado.svg', label: 'Banheiro adaptado' },
   { icon: 'snowflake', label: 'Ambiente climatizado' },
   { icon: 'wifi', label: 'Wi-Fi disponível' },
-  { icon: 'car', label: 'Estacionamento próximo' },
+  { icon: 'car', src: '/assets/images/estacionamento-proximo.svg', label: 'Estacionamento próximo' },
 ];
 
 export const treatments = [
