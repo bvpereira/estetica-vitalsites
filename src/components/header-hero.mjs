@@ -1,4 +1,4 @@
-import { clinic, images, navigation } from '../config.mjs';
+import { clinic, images, navigation, heroValues } from '../config.mjs';
 import { brand, escape, eyebrow, icon, instagram, photo, whatsapp } from './shared.mjs';
 
 export function header() {
@@ -14,17 +14,17 @@ export function header() {
 }
 
 export function hero() {
-  return `<section class="hero section" id="inicio" aria-labelledby="hero-title">
+  return `<section class="hero hero-dark" id="inicio" aria-labelledby="hero-title">
+    <div class="hero-background">${photo(images.hero, 'hero-backdrop', true)}</div>
+    <div class="section hero-inner">
     <div class="hero-copy">${eyebrow(`Estética & cuidado · ${escape(clinic.address.city)}, ${clinic.address.region}`)}
       <h1 id="hero-title">Sua beleza,<br>em sua <em>melhor</em><br>versão.</h1>
       <p class="hero-description">Tratamentos personalizados que unem tecnologia, cuidado e naturalidade para valorizar o que você tem de mais bonito.</p>
       <div class="hero-actions">${whatsapp('Agende sua avaliação')}<a class="text-link" href="#tratamentos">Conheça nossos tratamentos ${icon('arrow')}</a></div>
-      <p class="hero-values">Atendimento personalizado <span>·</span> Tecnologia avançada <span>·</span> Resultados naturais</p>
     </div>
-    <div class="hero-visual">${photo(images.hero, 'hero-photo', true)}
-      <div class="hero-note"><span class="note-line"></span><p>Essência preservada.<br><em>Beleza valorizada.</em></p></div>
-      <span class="vertical-note" aria-hidden="true">Um novo olhar para o cuidado</span>
-    </div>
-    <a class="scroll-note" href="#introducao"><span>Descubra a Aura</span><span aria-hidden="true">↓</span></a>
+    <div class="hero-logo">${photo(images.heroLogo, 'hero-logo-photo', true)}</div></div>
+    <div class="hero-marquee" role="region" aria-label="Diferenciais da Aura" tabindex="0"><div class="hero-marquee-track">
+    ${[false, true].map(copy => `<ul ${copy ? 'aria-hidden="true"' : ''}>${heroValues.map(value => `<li>${escape(value)}<span aria-hidden="true">✦</span></li>`).join('')}</ul>`).join('')}
+    </div><button type="button" class="marquee-pause" data-marquee-pause aria-label="Pausar textos em movimento" aria-pressed="false">Ⅱ</button></div>
   </section>`;
 }

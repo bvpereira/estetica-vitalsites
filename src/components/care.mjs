@@ -6,9 +6,8 @@ export function introduction() {
     <div class="intro-visual">${photo(images.introduction, 'intro-photo')}<span class="image-caption">Cuidado em cada detalhe.</span></div>
     <div class="intro-copy reveal">${eyebrow('O jeito Aura de cuidar', '01')}
       <h2 id="introduction-title">Cuidado que começa<br><em>entendendo você</em></h2>
-      <p>Cada pessoa possui características, necessidades e objetivos únicos. Por isso, na ${escape(clinic.name)}, cada tratamento começa com uma avaliação individualizada para criar um protocolo pensado especialmente para você.</p>
-      <p>O objetivo não é transformar quem você é, mas valorizar sua beleza de maneira natural e equilibrada.</p>
-      <a href="#sobre" class="text-link">Conheça quem cuida de você ${icon('arrow')}</a>
+      <p>Na ${escape(clinic.name)}, clínica de estética em ${escape(clinic.address.city)} - ${clinic.address.region}, cada cuidado começa com uma conversa. Entendemos suas características, necessidades e objetivos para criar um protocolo pensado especialmente para você.</p>
+      <p>Em nosso espaço no ${escape(clinic.address.district)} de ${escape(clinic.address.city)}, unimos estética facial e corporal a um atendimento próximo e individualizado. O objetivo não é transformar quem você é, mas valorizar sua beleza de maneira natural e equilibrada.</p>
     </div>
   </section>`;
 }
@@ -16,12 +15,13 @@ export function introduction() {
 export function treatmentSection() {
   return `<section class="section treatments" id="tratamentos" aria-labelledby="treatments-title">
     <div class="section-heading reveal"><div>${eyebrow('Facial & corporal', '02')}<h2 id="treatments-title">Tratamentos<br><em>pensados para você</em></h2></div><p>Tecnologia, conhecimento e protocolos personalizados para cuidar do rosto e do corpo.</p></div>
-    <div class="treatment-grid">${treatments.map((treatment, index) => `<article class="treatment treatment-${index + 1} reveal">
+    <div class="treatment-carousel" data-treatments><div class="treatment-viewport" tabindex="0" aria-label="Tratamentos. Use as setas do teclado ou deslize para navegar."><div class="treatment-grid">${treatments.map((treatment, index) => `<article class="treatment treatment-${index + 1}">
       <div class="treatment-image">${photo(treatment.image)}<span class="treatment-number">${String(index + 1).padStart(2, '0')}</span></div>
-      <p class="treatment-category">${treatment.category}</p><h3>${treatment.title}</h3><p class="treatment-description">${treatment.description}</p>
-      ${whatsapp('Saiba mais', 'text-link', `Olá! Vim pelo site da ${clinic.name} e gostaria de saber mais sobre ${treatment.title}.`)}
-    </article>`).join('')}</div>
+      <p class="treatment-category">${treatment.category}</p><h3>${treatment.title}</h3><p class="treatment-description">${treatment.summary}</p>
+      <button type="button" class="text-link" data-treatment-open="${treatment.id}" aria-haspopup="dialog" aria-controls="treatment-dialog-${treatment.id}">Saiba mais ${icon('arrow')}</button>
+    </article>`).join('')}</div></div><div class="treatment-controls"><button type="button" class="round-button previous" data-treatment-prev aria-label="Tratamentos anteriores">${icon('arrow')}</button><div class="treatment-pages" data-treatment-pages aria-label="Páginas de tratamentos"></div><button type="button" class="round-button" data-treatment-next aria-label="Próximos tratamentos">${icon('arrow')}</button></div></div>
     <p class="section-footnote">A indicação de cada procedimento é definida em uma avaliação individualizada.</p>
+    ${treatments.map(treatment => `<dialog class="treatment-dialog" id="treatment-dialog-${treatment.id}" aria-labelledby="treatment-title-${treatment.id}"><button type="button" class="dialog-close round-button" data-dialog-close aria-label="Fechar informações sobre ${escape(treatment.title)}">×</button>${eyebrow(treatment.category)}<h2 id="treatment-title-${treatment.id}">${treatment.title}</h2><p>${treatment.explanation}</p><h3>Para quem pode ser indicado</h3><p>${treatment.indication}</p><p class="modal-care-note">A avaliação considera também as condições de saúde e possíveis contraindicações. Resultados podem variar de pessoa para pessoa.</p><div class="treatment-modal-results"><figure><figcaption>Antes</figcaption>${photo(treatment.before, 'modal-result-photo')}</figure><figure><figcaption>Depois</figcaption>${photo(treatment.after, 'modal-result-photo')}<button type="button" class="button" data-dialog-close>Voltar para a página principal ${icon('arrow')}</button></figure></div></dialog>`).join('')}
   </section>`;
 }
 
@@ -70,7 +70,7 @@ export function testimonials() {
     ['Juliana A.', 'Foi exatamente o que eu procurava: um tratamento personalizado e sem exageros.'],
   ];
   return `<section class="testimonials" aria-labelledby="testimonials-title"><div class="section"><div class="section-heading reveal"><div>${eyebrow('Histórias de cuidado')}<h2 id="testimonials-title">Quem se cuida<br><em>com a Aura</em></h2></div><p>O cuidado se revela nos detalhes.<br>E na forma como você se sente.</p></div>
-    <div class="quotes">${quotes.map(([name, quote]) => `<figure class="quote reveal"><span class="quote-mark" aria-hidden="true">“</span><blockquote><p>${quote}</p></blockquote><figcaption>${name}<span>Relato ilustrativo</span></figcaption></figure>`).join('')}</div>
+    <div class="testimonial-carousel" role="region" aria-roledescription="carrossel" aria-label="Depoimentos ilustrativos" data-testimonials><div class="quotes">${quotes.map(([name, quote], index) => `<figure class="quote ${index === 0 ? 'is-active' : ''}" data-quote="${index}" data-position="${index === 0 ? 'center' : index === 1 ? 'right' : 'left'}" aria-hidden="${index !== 0}" aria-label="Depoimento de ${name}"><span class="quote-mark" aria-hidden="true">“</span><blockquote><p>${quote}</p></blockquote><figcaption>${name}<span>Relato ilustrativo</span></figcaption></figure>`).join('')}</div><div class="testimonial-controls"><button type="button" class="round-button previous" data-testimonial-prev aria-label="Depoimento anterior">${icon('arrow')}</button><button type="button" class="text-link" data-testimonial-pause>Pausar depoimentos</button><button type="button" class="round-button" data-testimonial-next aria-label="Próximo depoimento">${icon('arrow')}</button></div></div>
     <p class="section-footnote">Depoimentos fictícios para composição deste projeto demonstrativo.</p>
   </div></section>`;
 }

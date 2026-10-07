@@ -10,7 +10,7 @@ export function validateConfig() {
   assert.equal(treatments.length, 6);
   assert.equal(results.length, 3);
   assert.equal(gallery.length, 10);
-  const allImages = [...Object.values(images), ...treatments.map(item => item.image), ...results.flatMap(item => [item.before, item.after]), ...gallery.map(item => item.image)];
+  const allImages = [...Object.values(images), ...treatments.flatMap(item => [item.image, item.before, item.after]), ...results.flatMap(item => [item.before, item.after]), ...gallery.map(item => item.image)];
   for (const image of allImages) {
     assert.ok(image.alt.trim(), 'Cada imagem precisa de descrição.');
     if (image.src) assert.match(image.src, /^\/assets\/images\/[a-zA-Z0-9_./-]+\.(webp|avif|jpe?g|png|svg)$/i, 'Utilize uma imagem local em /assets/images/.');
@@ -38,7 +38,8 @@ export function validateHtml(html) {
       for (const target of match[1].split(' ')) assert.ok(ids.includes(target), `Referência ARIA inexistente: ${target}`);
     }
   }
-  assert.equal((html.match(/data-gallery-dot="/g) || []).length, 10);
+  assert.equal((html.match(/data-slide>/g) || []).length, 10);
+  assert.ok(!html.includes('data-gallery-dot='), 'Galeria da clínica não deve ter navegação por indicadores.');
   assert.equal((html.match(/data-range>/g) || []).length, 3);
   const schema = JSON.parse(html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1]);
   assert.equal(schema.name, clinic.name);

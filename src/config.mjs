@@ -24,10 +24,13 @@ export const clinic = {
 // Para substituir um placeholder, preencha src com /assets/images/nome-da-foto.webp.
 // Mantenha alt descritivo. Arquivos fora da Hero são carregados com lazy loading.
 export const images = {
-  hero: { src: '', alt: 'IMAGEM HERO: mulher em ambiente de clínica estética premium, aparência natural, elegante e sofisticada' },
-  introduction: { src: '', alt: 'IMAGEM: atendimento ou procedimento estético em ambiente sofisticado' },
-  professional: { src: '', alt: `IMAGEM: retrato profissional da ${clinic.professional} em ambiente elegante da clínica` },
+  hero: { src: '/assets/images/hero-background.png', alt: 'Fundo marrom escuro com detalhes dourados da Aura Clínica Estética' },
+  heroLogo: { src: '/assets/images/hero-logo.png', alt: 'Aura Clínica Estética — logo em tons de cobre e dourado' },
+  introduction: { src: '/assets/images/aura-recepcao.png', alt: 'Recepção acolhedora da Aura Clínica Estética em Rio das Ostras - RJ' },
+  professional: { src: '/assets/images/mariana-costa.png', alt: `${clinic.professional} em um ambiente da Aura Clínica Estética` },
 };
+
+export const heroValues = ['Atendimento personalizado', 'Tecnologia avançada', 'Resultados naturais', 'Estética facial e corporal', 'Cuidado em cada etapa', 'Sua essência em primeiro lugar'];
 
 export const treatments = [
   { id: 'toxina', title: 'Toxina Botulínica', category: 'Expressão & leveza', description: 'Suavização de linhas de expressão para uma aparência mais descansada e natural.', image: { src: '', alt: 'IMAGEM: tratamento com toxina botulínica em clínica estética' } },
@@ -37,6 +40,45 @@ export const treatments = [
   { id: 'skinbooster', title: 'Skinbooster', category: 'Hidratação & viço', description: 'Hidratação profunda para melhorar viço, textura e qualidade da pele.', image: { src: '', alt: 'IMAGEM: cuidado facial com skinbooster' } },
   { id: 'corporal', title: 'Estética Corporal', category: 'Corpo & bem-estar', description: 'Protocolos personalizados para flacidez, celulite, gordura localizada e contorno corporal.', image: { src: '', alt: 'IMAGEM: sala de tratamento de estética corporal' } },
 ];
+
+const treatmentDetails = {
+  toxina: {
+    summary: 'Um cuidado direcionado às linhas de expressão, com planejamento individual para suavizar a aparência e preservar a naturalidade do rosto.',
+    explanation: 'A toxina botulínica é utilizada para suavizar linhas de expressão associadas ao movimento da musculatura facial. Na avaliação, conversamos sobre suas expectativas e planejamos as regiões a tratar, buscando uma aparência mais descansada e equilibrada, sem prometer um resultado padronizado.',
+    indication: 'Pode ser considerada por quem deseja suavizar linhas de expressão. A indicação, as áreas de aplicação e as condições para realizar o procedimento dependem da avaliação individual.',
+  },
+  colageno: {
+    summary: 'Protocolos voltados ao estímulo de colágeno e ao cuidado com a firmeza e a qualidade da pele, respeitando o tempo de resposta de cada pessoa.',
+    explanation: 'Os bioestimuladores de colágeno fazem parte de protocolos que buscam estimular a produção natural de colágeno e cuidar da firmeza e da qualidade da pele. O planejamento considera a região, as características da pele e os objetivos apresentados. A evolução é acompanhada ao longo do protocolo.',
+    indication: 'Pode fazer parte do cuidado de pessoas que percebem perda de firmeza e desejam melhorar a qualidade da pele. A escolha do protocolo deve ser feita após avaliação.',
+  },
+  preenchimento: {
+    summary: 'Planejamento dos contornos faciais e labiais para valorizar proporções, com atenção ao equilíbrio e às características individuais do seu rosto.',
+    explanation: 'O preenchimento facial e labial é planejado para valorizar contornos e proporções, considerando as características que tornam cada rosto único. Antes do procedimento, avaliamos seus objetivos e discutimos as possibilidades do tratamento, buscando harmonia e respeitando sua identidade.',
+    indication: 'Pode ser considerado por quem deseja avaliar contornos, proporções ou volume em regiões do rosto e dos lábios. A indicação é individual, sem um modelo de beleza único.',
+  },
+  ultrassom: {
+    summary: 'Tecnologia para protocolos de estímulo de colágeno e cuidado com a flacidez facial e corporal, escolhidos a partir das necessidades da sua pele.',
+    explanation: 'O ultrassom microfocado é uma tecnologia utilizada em protocolos voltados ao estímulo de colágeno e ao cuidado com a flacidez. A avaliação define se o recurso faz sentido para a região e o objetivo desejado, além de orientar o acompanhamento da resposta ao tratamento.',
+    indication: 'Pode ser considerado por quem busca opções para o cuidado da flacidez facial ou corporal. A adequação da tecnologia depende da avaliação das características da pele e da região.',
+  },
+  skinbooster: {
+    summary: 'Cuidado voltado à hidratação da pele, ao viço e à textura, com um protocolo que considera seu momento e sua rotina de cuidados.',
+    explanation: 'O skinbooster integra protocolos de hidratação profunda para cuidar do viço, da textura e da qualidade da pele. Na consulta, avaliamos suas necessidades e a rotina de cuidados para definir uma proposta coerente com seus objetivos, com orientação antes e depois do procedimento.',
+    indication: 'Pode ser considerado por quem deseja avaliar opções de hidratação e melhora do aspecto da pele. A indicação e o planejamento são definidos individualmente.',
+  },
+  corporal: {
+    summary: 'Uma proposta de cuidado para flacidez, celulite, gordura localizada e contorno corporal, com opções selecionadas de acordo com seus objetivos.',
+    explanation: 'A estética corporal reúne possibilidades de cuidado para necessidades como flacidez, celulite, gordura localizada e contorno corporal. Em vez de um protocolo igual para todas as pessoas, a avaliação considera seus objetivos, as regiões de interesse e a resposta esperada para planejar e acompanhar cada etapa.',
+    indication: 'Pode ser considerada por quem deseja cuidar de questões relacionadas à pele e ao contorno corporal. As opções indicadas dependem de uma avaliação individual e não substituem hábitos de cuidado e bem-estar.',
+  },
+};
+
+for (const treatment of treatments) {
+  Object.assign(treatment, treatmentDetails[treatment.id]);
+  treatment.before = { src: '', alt: `IMAGEM ANTES: ${treatment.title}` };
+  treatment.after = { src: '', alt: `IMAGEM DEPOIS: ${treatment.title}` };
+}
 
 export const results = [
   { title: 'Harmonização Facial', tab: 'Facial', before: { src: '', alt: 'IMAGEM ANTES: harmonização facial' }, after: { src: '', alt: 'IMAGEM DEPOIS: harmonização facial' } },
@@ -55,8 +97,8 @@ export const gallery = [
   ['Tecnologia', 'equipamentos e tecnologia'],
   ['Conforto', 'ambiente interno da clínica'],
   ['Nossa Clínica', 'outro ângulo da clínica'],
-].map(([caption, description], index) => ({
-  caption, image: { src: '', alt: `IMAGEM CLÍNICA ${String(index + 1).padStart(2, '0')}: ${description}` },
+].map(([caption, description]) => ({
+  caption, image: { src: '', alt: `IMAGEM CLÍNICA: ${description}` },
 }));
 
 export const navigation = [

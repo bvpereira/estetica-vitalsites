@@ -35,11 +35,12 @@ src/components/care.mjs           Introdução, tratamentos, diferenciais,
                                  profissional, etapas e depoimentos
 src/components/results.mjs        Comparação interativa antes/depois
 src/components/clinic.mjs         Galeria, localização e mapa
-src/components/contact-footer.mjs CTA, contato, footer e diálogo de orientação
+src/components/contact-footer.mjs CTA, footer e diálogo de orientação
 src/components/shared.mjs        Botões, ícones, marca e imagens reutilizáveis
 assets/css/styles.css            Estilos e responsividade
-assets/js/main.js                Menu, comparação e interações
-assets/js/gallery.js             Galeria contínua, controles e pausas
+assets/js/main.js                Menu, comparação e faixa da Hero
+assets/js/gallery.js             Galeria contínua e pausas
+assets/js/carousels.js           Tratamentos, popups e depoimentos
 assets/images/                   Fotos futuras e favicon vetorial
 scripts/                         Build e validações
 tests/site.test.mjs               Verificações automatizadas
@@ -62,11 +63,13 @@ O mapa depende do Google Maps, com iframe lazy loading.
 
 Locais da configuração:
 
-- Hero: `images.hero`.
+- Fundo da Hero: `images.hero`.
+- Logo da Hero: `images.heroLogo`.
 - Introdução: `images.introduction`.
 - Profissional: `images.professional`.
 - Tratamentos: `treatments[].image`.
-- Antes/depois: `results[].before` e `results[].after` (seis fotos).
+- Antes/depois principal: `results[].before` e `results[].after` (seis fotos).
+- Antes/depois dos popups: `treatments[].before` e `treatments[].after` (12 fotos).
 - Clínica: `gallery[].image` (dez fotos); legendas em `caption`.
 
 Use fotos antes/depois com o mesmo enquadramento, proporção, posição do rosto
@@ -87,7 +90,8 @@ Google Maps. Com a URL configurada, abre o vídeo em nova aba.
 - Antes/depois sobreposto em formato 1:1, com mouse, touch e range para teclado.
 - Três resultados com tabs e navegação por setas, Home e End.
 - Galeria com dez fotos quadradas abaixo dos contatos e do mapa, movimento
-  automático contínuo, swipe, arraste com mouse, setas, indicadores e teclado.
+  automático contínuo, swipe, arraste com mouse e teclado. Sem setas,
+  indicadores ou numeração visual; legendas em badges dentro das imagens.
   Repetições visuais permitem o loop sem duplicar conteúdo acessível.
   Pausa ao interagir, ao sair da tela ou trocar de aba; botão para pausar.
   O movimento automático fica desligado com `prefers-reduced-motion`.
@@ -113,3 +117,19 @@ Google Maps. Com a URL configurada, abre o vídeo em nova aba.
 Skill de referência: `.agents/skills/frontend-design/SKILL.md`, instalada de
 https://github.com/bear2u/my-skills/tree/master/skills/frontend-design.
 Nenhuma outra skill foi instalada.
+
+## Refinamento atual
+
+- Banner escuro e logo transparente enviados pelo usuário; fotos reais fornecidas
+  para introdução e profissional. Arquivos PNG preservados em `assets/images/`.
+- Hero com seis diferenciais em faixa contínua e controle de pausa.
+- Tratamentos em uma linha: três no desktop, dois no tablet, um no celular.
+  Navegação por páginas, teclado e swipe; seis popups independentes com indicação
+  individual, placeholders de antes/depois, X e botão para retornar à página.
+- Diferenciais centralizados, ícones 30% maiores e títulos em negrito.
+- Comparação principal mantém 1:1 e largura máxima 35% menor (468 px).
+- Depoimentos alternam a cada seis segundos, com card central em destaque
+  e laterais desfocadas; pausa ao interagir e respeito ao movimento reduzido.
+- Galeria da clínica com largura das imagens reduzida em 50%, badge e sem navegação.
+- Contato permanece junto do mapa, com a âncora `#contato`; seção repetida removida.
+- Rodapé com fundo escuro e texto claro.

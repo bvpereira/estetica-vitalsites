@@ -50,10 +50,11 @@ export function initGallery(gallery, reducedMotion) {
   }
   function updateControls() {
     const paused = manuallyPaused || reducedMotion.matches;
+    if (!toggle) return;
     toggle.textContent = reducedMotion.matches ? 'Movimento reduzido' : paused ? 'Reproduzir galeria' : 'Pausar galeria';
     toggle.setAttribute('aria-label', reducedMotion.matches ? 'Movimento automático desativado conforme sua preferência de movimento reduzido' : paused ? 'Reproduzir movimento automático da galeria' : 'Pausar movimento automático da galeria');
     toggle.disabled = reducedMotion.matches;
-    counter.parentElement.setAttribute('aria-live', active() ? 'off' : 'polite');
+    if (counter) counter.parentElement.setAttribute('aria-live', active() ? 'off' : 'polite');
   }
   function updateGallery(index) {
     currentSlide = index;
@@ -61,7 +62,7 @@ export function initGallery(gallery, reducedMotion) {
       if (i === index) dot.setAttribute('aria-current', 'true');
       else dot.removeAttribute('aria-current');
     });
-    counter.textContent = String(index + 1).padStart(2, '0');
+    if (counter) counter.textContent = String(index + 1).padStart(2, '0');
   }
   function slidePosition(slide) {
     return slide.offsetLeft + slide.offsetWidth / 2 - viewport.clientWidth / 2;
@@ -113,10 +114,10 @@ export function initGallery(gallery, reducedMotion) {
     viewport.scrollTo({ left: slidePosition(nearest), behavior: reducedMotion.matches ? 'instant' : 'smooth' });
     updateGallery(target);
   }
-  previous.addEventListener('click', () => goToSlide(currentSlide - 1));
-  next.addEventListener('click', () => goToSlide(currentSlide + 1));
+  previous?.addEventListener('click', () => goToSlide(currentSlide - 1));
+  next?.addEventListener('click', () => goToSlide(currentSlide + 1));
   dots.forEach((dot, index) => dot.addEventListener('click', () => goToSlide(index)));
-  toggle.addEventListener('click', () => { manuallyPaused = !manuallyPaused; refresh(); });
+  toggle?.addEventListener('click', () => { manuallyPaused = !manuallyPaused; refresh(); });
   viewport.addEventListener('keydown', event => {
     let target;
     if (event.key === 'ArrowRight') target = currentSlide + 1;

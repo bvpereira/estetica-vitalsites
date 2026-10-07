@@ -3,7 +3,7 @@ import { header, hero } from './components/header-hero.mjs';
 import { introduction, treatmentSection, differentials, about, howItWorks, testimonials } from './components/care.mjs';
 import { beforeAfter } from './components/results.mjs';
 import { clinicSection } from './components/clinic.mjs';
-import { finalCta, contact, footer } from './components/contact-footer.mjs';
+import { finalCta, footer } from './components/contact-footer.mjs';
 import { escape } from './components/shared.mjs';
 
 export function structuredData() {
@@ -39,7 +39,7 @@ export function renderPage() {
   <link rel="icon" href="/assets/images/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/css/styles.css">
   <script type="application/ld+json">${JSON.stringify(structuredData()).replaceAll('<', '\\u003c')}</script>
   <script type="module" src="/assets/js/main.js"></script>
@@ -57,7 +57,6 @@ ${howItWorks()}
 ${testimonials()}
 ${clinicSection()}
 ${finalCta()}
-${contact()}
 </main>
 ${footer()}
 </body>

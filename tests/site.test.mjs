@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { renderPage, structuredData } from '../src/page.mjs';
-import { clinic, maps, whatsappUrl } from '../src/config.mjs';
+import { clinic, maps, whatsappUrl, treatments } from '../src/config.mjs';
 import { validateConfig, validateHtml } from '../scripts/validate.mjs';
 import { escape, photo } from '../src/components/shared.mjs';
 import { wrapPosition } from '../assets/js/gallery.js';
@@ -10,6 +10,29 @@ test('contatos e URLs mantêm os dados centralizados, inclusive acentos nas mens
   validateConfig();
   assert.equal(new URL(whatsappUrl('Olá! Quero avaliação facial.')).searchParams.get('text'), 'Olá! Quero avaliação facial.');
   assert.equal(new URL(maps.search).searchParams.get('query'), clinic.address.full);
+});
+
+test('cada tratamento abre seu próprio diálogo e oferece duas formas de voltar', () => {
+  const html = renderPage();
+  for (const treatment of treatments) {
+    assert.ok(html.includes(`data-treatment-open="${treatment.id}"`));
+    const dialog = html.match(new RegExp(`<dialog[^>]*id="treatment-dialog-${treatment.id}"[\\s\\S]*?<\\/dialog>`))[0];
+    assert.ok(dialog.includes(treatment.explanation));
+    assert.ok(dialog.includes('Para quem pode ser indicado'));
+    assert.ok(dialog.includes('IMAGEM ANTES:'));
+    assert.ok(dialog.includes('IMAGEM DEPOIS:'));
+    assert.equal((dialog.match(/data-dialog-close/g) || []).length, 2);
+  }
+});
+
+test('Hero usa os arquivos enviados e a galeria não apresenta navegação nem numeração nas legendas', () => {
+  const html = renderPage();
+  assert.ok(html.includes('/assets/images/hero-background.png'));
+  assert.ok(html.includes('/assets/images/hero-logo.png'));
+  assert.ok(html.includes('/assets/images/aura-recepcao.png'));
+  assert.ok(html.includes('/assets/images/mariana-costa.png'));
+  for (const removed of ['Descubra a Aura', 'Essência preservada.', 'Um novo olhar para o cuidado', 'Conheça quem cuida de você', 'Será um prazer receber você', 'data-gallery-prev', 'data-gallery-next']) assert.ok(!html.includes(removed), removed);
+  assert.ok(html.includes('<figcaption>Recepção</figcaption>'));
 });
 test('HTML de produção tem navegação e referências acessíveis válidas sem precisar de JS para o conteúdo', () => {
   const html = renderPage();
