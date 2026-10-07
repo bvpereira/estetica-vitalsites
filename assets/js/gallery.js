@@ -37,23 +37,20 @@ export function initGallery(gallery, reducedMotion) {
   let cycle = 0;
   let frame = 0;
   let lastTime = 0;
-  let manuallyPaused = reducedMotion.matches;
-  let focused = false;
-  let hovered = false;
+  let manuallyPaused = false;
   let touching = false;
   let visible = false;
   let drag = null;
   let holdUntil = 0;
 
   function active() {
-    return !manuallyPaused && !reducedMotion.matches && !focused && !hovered && !touching && visible && !document.hidden;
+    return !manuallyPaused && !touching && visible && !document.hidden;
   }
   function updateControls() {
-    const paused = manuallyPaused || reducedMotion.matches;
+    const paused = manuallyPaused;
     if (!toggle) return;
-    toggle.textContent = reducedMotion.matches ? 'Movimento reduzido' : paused ? 'Reproduzir galeria' : 'Pausar galeria';
-    toggle.setAttribute('aria-label', reducedMotion.matches ? 'Movimento automático desativado conforme sua preferência de movimento reduzido' : paused ? 'Reproduzir movimento automático da galeria' : 'Pausar movimento automático da galeria');
-    toggle.disabled = reducedMotion.matches;
+    toggle.textContent = paused ? 'Reproduzir galeria' : 'Pausar galeria';
+    toggle.setAttribute('aria-label', paused ? 'Reproduzir movimento automático da galeria' : 'Pausar movimento automático da galeria');
     if (counter) counter.parentElement.setAttribute('aria-live', active() ? 'off' : 'polite');
   }
   function updateGallery(index) {
@@ -127,12 +124,6 @@ export function initGallery(gallery, reducedMotion) {
     if (target !== undefined) { event.preventDefault(); goToSlide(target); }
   });
   viewport.addEventListener('scroll', synchronize, { passive: true });
-  gallery.addEventListener('mouseenter', () => { hovered = true; refresh(); });
-  gallery.addEventListener('mouseleave', () => { hovered = false; refresh(); });
-  gallery.addEventListener('focusin', () => { focused = true; refresh(); });
-  gallery.addEventListener('focusout', event => {
-    if (!gallery.contains(event.relatedTarget)) { focused = false; refresh(); }
-  });
   viewport.addEventListener('pointerdown', event => {
     touching = true;
     refresh();
@@ -162,7 +153,6 @@ export function initGallery(gallery, reducedMotion) {
   let resizeTimer;
   window.addEventListener('resize', () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(measure, 150); });
   document.addEventListener('visibilitychange', refresh);
-  reducedMotion.addEventListener('change', () => { manuallyPaused = reducedMotion.matches; refresh(); });
   if ('IntersectionObserver' in window) {
     new IntersectionObserver(entries => { visible = entries[0].isIntersecting; refresh(); }, { threshold: .05 }).observe(gallery);
   } else visible = true;

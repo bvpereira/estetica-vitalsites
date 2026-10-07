@@ -106,7 +106,7 @@ resultTabs.forEach((tab, index) => {
 initGallery(document.querySelector('[data-gallery]'), reducedMotion);
 initTreatments(document.querySelector('[data-treatments]'), reducedMotion);
 initTreatmentDialogs();
-initTestimonials(document.querySelector('[data-testimonials]'), reducedMotion);
+initTestimonials(document.querySelector('[data-testimonials]'));
 initFaq(document.querySelector('#faq'));
 const marqueePause = document.querySelector('[data-marquee-pause]');
 marqueePause.addEventListener('click', () => {

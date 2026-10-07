@@ -72,13 +72,12 @@ export function initTreatmentDialogs() {
   });
 }
 
-export function initTestimonials(root, reducedMotion) {
+export function initTestimonials(root) {
   const cards = [...root.querySelectorAll('[data-quote]')];
   const pause = root.querySelector('[data-testimonial-pause]');
   let current = 0;
   let timer;
   let paused = false;
-  let interacting = false;
   let visible = false;
   function measure() {
     root.querySelector('.quotes').style.minHeight = `${Math.max(...cards.map(card => card.offsetHeight)) + 36}px`;
@@ -93,22 +92,13 @@ export function initTestimonials(root, reducedMotion) {
   }
   function refresh() {
     clearInterval(timer);
-    pause.textContent = reducedMotion.matches ? 'Movimento reduzido' : paused ? 'Reproduzir depoimentos' : 'Pausar depoimentos';
-    pause.disabled = reducedMotion.matches;
-    if (!paused && !interacting && !document.hidden && visible && !reducedMotion.matches) timer = setInterval(() => select(current + 1), 6000);
+    pause.textContent = paused ? 'Reproduzir depoimentos' : 'Pausar depoimentos';
+    if (!paused && !document.hidden && visible) timer = setInterval(() => select(current + 1), 10000);
   }
   root.querySelector('[data-testimonial-prev]').addEventListener('click', () => { select(current - 1); refresh(); });
   root.querySelector('[data-testimonial-next]').addEventListener('click', () => { select(current + 1); refresh(); });
   pause.addEventListener('click', () => { paused = !paused; refresh(); });
-  let hovered = false;
-  let focused = false;
-  const interaction = () => { interacting = hovered || focused; refresh(); };
-  root.addEventListener('mouseenter', () => { hovered = true; interaction(); });
-  root.addEventListener('mouseleave', () => { hovered = false; interaction(); });
-  root.addEventListener('focusin', () => { focused = true; interaction(); });
-  root.addEventListener('focusout', event => { if (!root.contains(event.relatedTarget)) { focused = false; interaction(); } });
   document.addEventListener('visibilitychange', refresh);
-  reducedMotion.addEventListener('change', refresh);
   if ('IntersectionObserver' in window) new IntersectionObserver(entries => { visible = entries[0].isIntersecting; refresh(); }, { threshold: .15 }).observe(root);
   else visible = true;
   select(0);

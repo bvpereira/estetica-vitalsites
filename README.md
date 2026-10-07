@@ -93,8 +93,9 @@ Google Maps. Com a URL configurada, abre o vídeo em nova aba.
   automático contínuo, swipe, arraste com mouse e teclado. Sem setas,
   indicadores ou numeração visual; legendas em badges dentro das imagens.
   Repetições visuais permitem o loop sem duplicar conteúdo acessível.
-  Pausa ao interagir, ao sair da tela ou trocar de aba; botão para pausar.
-  O movimento automático fica desligado com `prefers-reduced-motion`.
+  Pausa durante arraste, ao sair da tela ou trocar de aba; botão para pausar.
+  O movimento automático solicitado permanece ativo independentemente de
+  `prefers-reduced-motion`; os demais efeitos respeitam essa preferência.
 - Seis etapas de cuidado: avaliação, protocolo, tratamento, recuperação,
   acompanhamento da evolução e planejamento da continuidade.
 - Parágrafos de 16 px e textos de apoio ampliados para facilitar a leitura.
@@ -128,8 +129,8 @@ Nenhuma outra skill foi instalada.
   individual, placeholders de antes/depois, X e botão para retornar à página.
 - Diferenciais centralizados, ícones 30% maiores e títulos em negrito.
 - Comparação principal mantém 1:1 e largura máxima 35% menor (468 px).
-- Depoimentos alternam a cada seis segundos, com card central em destaque
-  e laterais desfocadas; pausa ao interagir e respeito ao movimento reduzido.
+- Depoimentos alternam a cada dez segundos, com card central em destaque
+  e laterais desfocadas; navegação manual e controle de pausa permanecem disponíveis.
 - Galeria da clínica com largura das imagens reduzida em 50%, badge e sem navegação.
 - Contato permanece junto do mapa, com a âncora `#contato`; seção repetida removida.
 - Rodapé com fundo escuro e texto claro.
@@ -147,3 +148,8 @@ Nenhuma outra skill foi instalada.
   https://schema.org/FAQPage. O Google encerrou o recurso de rich results de FAQ
   em maio de 2026; a marcação semântica não implica exibição especial na busca.
   Fonte: https://developers.google.com/search/updates#may-2026
+
+A faixa da Hero percorre toda a largura do banner da direita para a esquerda.
+A galeria mantém movimento contínuo na mesma direção. Passar o mouse sobre
+as seções não interrompe o automático; os controles explícitos permitem pausar.
+Não são exibidas mensagens de movimento reduzido nos carrosséis.
