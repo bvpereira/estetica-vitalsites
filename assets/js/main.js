@@ -71,20 +71,11 @@ resultTabs.forEach((tab, index) => {
   });
 });
 
-initGallery(document.querySelector('[data-gallery]'), reducedMotion);
+initGallery(document.querySelector('[data-gallery]'));
 initTreatments(document.querySelector('[data-treatments]'), reducedMotion);
 initTreatmentDialogs();
 initTestimonials(document.querySelector('[data-testimonials]'));
 initFaq(document.querySelector('#faq'));
-const marqueePause = document.querySelector('[data-marquee-pause]');
-marqueePause.addEventListener('click', () => {
-  const paused = marqueePause.getAttribute('aria-pressed') !== 'true';
-  marqueePause.setAttribute('aria-pressed', String(paused));
-  marqueePause.setAttribute('aria-label', paused ? 'Reproduzir textos em movimento' : 'Pausar textos em movimento');
-  marqueePause.textContent = paused ? '▷' : 'Ⅱ';
-  document.querySelector('.hero-marquee').classList.toggle('is-paused', paused);
-});
-
 const dialog = document.querySelector('.directions-dialog');
 document.querySelector('[data-directions]').addEventListener('click', () => {
   if (directionsVideoUrl) {

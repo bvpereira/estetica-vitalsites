@@ -2,8 +2,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { initTestimonials } from '../assets/js/carousels.js';
 
-test('depoimentos alternam em dez segundos e mantêm navegação e pausa manual', t => {
-  const buttons = Object.fromEntries(['prev', 'next', 'pause'].map(name => [name, {
+test('depoimentos alternam em dez segundos e mantêm navegação sem controle de pausa', t => {
+  const buttons = Object.fromEntries(['prev', 'next'].map(name => [name, {
     textContent: '', addEventListener(_, handler) { this.click = handler; },
   }]));
   const cards = Array.from({ length: 3 }, () => ({
@@ -37,12 +37,7 @@ test('depoimentos alternam em dez segundos e mantêm navegação e pausa manual'
   assert.equal(cards[2].dataset.position, 'center');
   buttons.prev.click();
   assert.equal(cards[1].dataset.position, 'center');
-  buttons.pause.click();
-  assert.equal(timers.size, 0);
-  assert.equal(buttons.pause.textContent, 'Reproduzir depoimentos');
-  buttons.pause.click();
   assert.equal(timers.size, 1);
-  assert.equal(buttons.pause.textContent, 'Pausar depoimentos');
   document.hidden = true;
   events.visibilitychange();
   assert.equal(timers.size, 0);

@@ -84,7 +84,7 @@ for (const treatment of treatments) {
 }
 
 export const results = [
-  { title: 'Harmonização Facial', tab: 'Facial', before: { src: '', alt: 'IMAGEM ANTES: harmonização facial' }, after: { src: '', alt: 'IMAGEM DEPOIS: harmonização facial' } },
+  { title: 'Toxina Botulínica', tab: 'Toxina Botulínica', before: treatments[0].before, after: treatments[0].after },
   { title: 'Bioestimulador de Colágeno', tab: 'Colágeno', before: { src: '', alt: 'IMAGEM ANTES: bioestimulador de colágeno' }, after: { src: '', alt: 'IMAGEM DEPOIS: bioestimulador de colágeno' } },
   { title: 'Tratamento Facial', tab: 'Tratamento Facial', before: { src: '', alt: 'IMAGEM ANTES: tratamento facial' }, after: { src: '', alt: 'IMAGEM DEPOIS: tratamento facial' } },
 ];

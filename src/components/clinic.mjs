@@ -15,9 +15,6 @@ export function clinicSection() {
       <div class="gallery-viewport" tabindex="0" aria-label="Galeria da clínica. Use as setas do teclado ou deslize para navegar.">
         <div class="gallery-track">${gallery.map((item, index) => `<figure class="gallery-slide gallery-tone-${index % 3}" role="group" aria-roledescription="slide" aria-label="${escape(item.caption)}" data-slide>${photo(item.image, 'gallery-photo')}<figcaption>${item.caption}</figcaption></figure>`).join('')}</div>
       </div>
-      <div class="section gallery-bottom">
-        <button type="button" class="text-link gallery-toggle" data-gallery-toggle>Pausar movimento</button>
-      </div>
     </div>
   </section>`;
 }

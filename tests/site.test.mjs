@@ -86,7 +86,7 @@ test('a clínica apresenta localização antes da galeria e o cuidado inclui aco
   const html = renderPage();
   assert.ok(html.indexOf('class="section location"') < html.indexOf('class="gallery-component"'));
   assert.ok(html.indexOf('<iframe') < html.indexOf('class="gallery-component"'));
-  assert.ok(html.includes('data-gallery-toggle'));
+  assert.ok(!html.includes('data-gallery-toggle'));
   assert.ok(html.includes('Cuide da sua recuperação'));
   assert.ok(html.includes('Acompanhe sua evolução'));
   assert.ok(html.includes('Planeje a continuidade do cuidado'));

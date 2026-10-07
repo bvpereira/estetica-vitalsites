@@ -166,3 +166,9 @@ As 18 imagens dos seis tratamentos foram fornecidas pelo usuário e estão
 em `assets/images/tratamentos/`. Cada ID tem a imagem principal (`id.png`),
 antes (`id-antes.png`) e depois (`id-depois.png`), vinculados em `src/config.mjs`.
 Os arquivos PNG originais foram preservados e mantêm proporção 1:1.
+
+Controles de pausa removidos da Hero, galeria e depoimentos. A faixa da Hero
+e a galeria mantêm movimento contínuo; depoimentos alternam a cada dez segundos
+com navegação anterior/próximo. Instagram aparece abaixo do WhatsApp na clínica.
+A primeira comparação em Resultados agora apresenta Toxina Botulínica e utiliza
+as imagens de antes/depois fornecidas, compartilhadas com o popup do tratamento.

@@ -11,8 +11,8 @@ export function hero() {
       <div class="hero-actions">${whatsapp('Agende sua avaliação')}<a class="text-link" href="#tratamentos">Conheça nossos tratamentos ${icon('arrow')}</a></div>
     </div>
     <div class="hero-logo">${photo(images.heroLogo, 'hero-logo-photo', true)}</div></div>
-    <div class="hero-marquee" role="region" aria-label="Diferenciais da Aura" tabindex="0"><div class="hero-marquee-track">
+    <div class="hero-marquee" role="region" aria-label="Diferenciais da Aura"><div class="hero-marquee-track">
     ${[false, true].map(copy => `<ul ${copy ? 'aria-hidden="true"' : ''}>${heroValues.map(value => `<li>${escape(value)}<span aria-hidden="true">✦</span></li>`).join('')}</ul>`).join('')}
-    </div><button type="button" class="marquee-pause" data-marquee-pause aria-label="Pausar textos em movimento" aria-pressed="false">Ⅱ</button></div>
+    </div></div>
   </section>`;
 }

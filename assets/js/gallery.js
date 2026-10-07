@@ -11,15 +11,10 @@ export function advanceDistance(elapsed, remainder = 0) {
   return { pixels, remainder: distance - pixels };
 }
 
-export function initGallery(gallery, reducedMotion) {
+export function initGallery(gallery) {
   const viewport = gallery.querySelector('.gallery-viewport');
   const track = gallery.querySelector('.gallery-track');
   const slides = [...gallery.querySelectorAll('[data-slide]')];
-  const dots = [...gallery.querySelectorAll('[data-gallery-dot]')];
-  const previous = gallery.querySelector('[data-gallery-prev]');
-  const next = gallery.querySelector('[data-gallery-next]');
-  const toggle = gallery.querySelector('[data-gallery-toggle]');
-  const counter = gallery.querySelector('[data-gallery-count]');
   const before = document.createDocumentFragment();
   const after = document.createDocumentFragment();
   slides.forEach(slide => {
@@ -44,30 +39,14 @@ export function initGallery(gallery, reducedMotion) {
   let frame = 0;
   let lastTime = 0;
   let remainder = 0;
-  let manuallyPaused = false;
   let touching = false;
   let visible = false;
   let drag = null;
-  let holdUntil = 0;
 
   function active() {
-    return !manuallyPaused && !touching && visible && !document.hidden;
+    return !touching && visible && !document.hidden;
   }
-  function updateControls() {
-    const paused = manuallyPaused;
-    if (!toggle) return;
-    toggle.textContent = paused ? 'Reproduzir galeria' : 'Pausar galeria';
-    toggle.setAttribute('aria-label', paused ? 'Reproduzir movimento automático da galeria' : 'Pausar movimento automático da galeria');
-    if (counter) counter.parentElement.setAttribute('aria-live', active() ? 'off' : 'polite');
-  }
-  function updateGallery(index) {
-    currentSlide = index;
-    dots.forEach((dot, i) => {
-      if (i === index) dot.setAttribute('aria-current', 'true');
-      else dot.removeAttribute('aria-current');
-    });
-    if (counter) counter.textContent = String(index + 1).padStart(2, '0');
-  }
+  function updateGallery(index) { currentSlide = index; }
   function slidePosition(slide) {
     return slide.offsetLeft + slide.offsetWidth / 2 - viewport.clientWidth / 2;
   }
@@ -96,7 +75,7 @@ export function initGallery(gallery, reducedMotion) {
   function tick(time) {
     frame = 0;
     if (!active()) { lastTime = 0; return; }
-    if (lastTime && time > holdUntil) {
+    if (lastTime) {
       const elapsed = Math.min(time - lastTime, 50);
       const step = advanceDistance(elapsed, remainder);
       remainder = step.remainder;
@@ -109,7 +88,6 @@ export function initGallery(gallery, reducedMotion) {
     frame = requestAnimationFrame(tick);
   }
   function refresh() {
-    updateControls();
     if (active() && !frame) { lastTime = 0; frame = requestAnimationFrame(tick); }
     else if (!active() && frame) { cancelAnimationFrame(frame); frame = 0; lastTime = 0; }
   }
@@ -118,14 +96,9 @@ export function initGallery(gallery, reducedMotion) {
     // Select the closest visual copy so next/previous also work at either end.
     const candidates = allSlides.filter((_, i) => i % slides.length === target);
     const nearest = candidates.reduce((best, slide) => Math.abs(slidePosition(slide) - viewport.scrollLeft) < Math.abs(slidePosition(best) - viewport.scrollLeft) ? slide : best);
-    holdUntil = performance.now() + 1800;
-    viewport.scrollTo({ left: slidePosition(nearest), behavior: reducedMotion.matches ? 'instant' : 'smooth' });
+    viewport.scrollTo({ left: slidePosition(nearest), behavior: 'instant' });
     updateGallery(target);
   }
-  previous?.addEventListener('click', () => goToSlide(currentSlide - 1));
-  next?.addEventListener('click', () => goToSlide(currentSlide + 1));
-  dots.forEach((dot, index) => dot.addEventListener('click', () => goToSlide(index)));
-  toggle?.addEventListener('click', () => { manuallyPaused = !manuallyPaused; refresh(); });
   viewport.addEventListener('keydown', event => {
     let target;
     if (event.key === 'ArrowRight') target = currentSlide + 1;
@@ -149,7 +122,6 @@ export function initGallery(gallery, reducedMotion) {
   function stopDrag(event) {
     if (!touching && !drag) return;
     touching = false;
-    holdUntil = performance.now() + 1800;
     if (drag && event.pointerId === drag.id) {
       drag = null;
       viewport.classList.remove('is-dragging');

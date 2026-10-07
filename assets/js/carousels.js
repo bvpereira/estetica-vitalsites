@@ -74,10 +74,8 @@ export function initTreatmentDialogs() {
 
 export function initTestimonials(root) {
   const cards = [...root.querySelectorAll('[data-quote]')];
-  const pause = root.querySelector('[data-testimonial-pause]');
   let current = 0;
   let timer;
-  let paused = false;
   let visible = false;
   function measure() {
     root.querySelector('.quotes').style.minHeight = `${Math.max(...cards.map(card => card.offsetHeight)) + 36}px`;
@@ -92,12 +90,10 @@ export function initTestimonials(root) {
   }
   function refresh() {
     clearInterval(timer);
-    pause.textContent = paused ? 'Reproduzir depoimentos' : 'Pausar depoimentos';
-    if (!paused && !document.hidden && visible) timer = setInterval(() => select(current + 1), 10000);
+    if (!document.hidden && visible) timer = setInterval(() => select(current + 1), 10000);
   }
   root.querySelector('[data-testimonial-prev]').addEventListener('click', () => { select(current - 1); refresh(); });
   root.querySelector('[data-testimonial-next]').addEventListener('click', () => { select(current + 1); refresh(); });
-  pause.addEventListener('click', () => { paused = !paused; refresh(); });
   document.addEventListener('visibilitychange', refresh);
   if ('IntersectionObserver' in window) new IntersectionObserver(entries => { visible = entries[0].isIntersecting; refresh(); }, { threshold: .15 }).observe(root);
   else visible = true;

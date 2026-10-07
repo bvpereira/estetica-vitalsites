@@ -452,8 +452,6 @@ h1 { font-size: clamp(64px, 7.15vw, 109px); line-height: .99; }
 .gallery-intro { text-align: center; margin-bottom: 35px; }
 .gallery-intro h3 { font-size: clamp(32px, 3vw, 42px); margin-bottom: 18px; }
 .gallery-intro > p { max-width: 600px; margin-inline: auto; color: var(--muted); }
-.gallery-toggle { border-bottom: 1px solid var(--line); padding: 6px 0; }
-.gallery-toggle:disabled { cursor: default; opacity: .65; }
 .hero-values { max-width: 450px; }
 @media (max-width: 680px) {
   .button { padding-inline: 18px; gap: 16px; }
@@ -482,9 +480,6 @@ h1 { font-size: clamp(64px, 7.15vw, 109px); line-height: .99; }
 .hero-logo-photo { aspect-ratio: 1 / 1; height: auto; background: none; }
 .hero-logo-photo img { position: absolute; inset: 0; object-fit: contain; }
 .hero-marquee { position: relative; overflow: hidden; border-block: 1px solid rgb(237 197 168 / 25%); padding-block: 23px; background: rgb(18 10 6 / 32%); }
-.marquee-pause { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); border: 1px solid #70513c; border-radius: 50%; width: 38px; height: 38px; background: #2a190f; color: #fff2e5; font-size: 18px; }
-.hero-marquee.is-paused .hero-marquee-track { animation-play-state: paused !important; }
-/* Requested ticker remains automatic; its dedicated pause button takes precedence. */
 .hero-marquee-track { display: flex; width: max-content; animation: hero-ticker 45s linear infinite !important; }
 .hero-marquee ul { list-style: none; display: flex; justify-content: space-around; min-width: 100vw; gap: 46px; padding-right: 46px; flex-shrink: 0; }
 .hero-marquee li { display: flex; align-items: center; gap: 46px; font-size: 14px; letter-spacing: .03em; white-space: nowrap; }
@@ -643,3 +638,7 @@ html { scroll-padding-top: 24px; }
   .intro-photo, .intro-visual::before { border-radius: 70px 14px 70px 14px; }
   .footer-logo { width: 140px; }
 }
+
+/* Contact channels stacked consistently on all screen sizes. */
+.location-contact-row { flex-direction: column; gap: 0; align-items: flex-start; }
+.gallery-component { padding-bottom: 40px; }
