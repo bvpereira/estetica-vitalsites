@@ -1,0 +1,5 @@
+.agents/
+.git/
+.gitignore
+README.md
+**/.gitkeep
