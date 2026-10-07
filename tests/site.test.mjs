@@ -20,8 +20,8 @@ test('cada tratamento abre seu próprio diálogo e oferece duas formas de voltar
     const dialog = html.match(new RegExp(`<dialog[^>]*id="treatment-dialog-${treatment.id}"[\\s\\S]*?<\\/dialog>`))[0];
     assert.ok(dialog.includes(treatment.explanation));
     assert.ok(dialog.includes('Para quem pode ser indicado'));
-    assert.ok(dialog.includes('IMAGEM ANTES:'));
-    assert.ok(dialog.includes('IMAGEM DEPOIS:'));
+    assert.ok(dialog.includes(`src="${treatment.before.src}"`));
+    assert.ok(dialog.includes(`src="${treatment.after.src}"`));
     assert.equal((dialog.match(/data-dialog-close/g) || []).length, 2);
   }
 });

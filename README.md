@@ -125,7 +125,7 @@ Nenhuma outra skill foi instalada.
 - Hero com seis diferenciais em faixa contínua e controle de pausa.
 - Tratamentos em uma linha: três no desktop, dois no tablet, um no celular.
   Navegação por páginas, teclado e swipe; seis popups independentes com indicação
-  individual, placeholders de antes/depois, X e botão para retornar à página.
+  individual, imagens de antes/depois, X e botão para retornar à página.
 - Diferenciais centralizados, ícones 30% maiores e títulos em negrito.
 - Comparação principal mantém 1:1 e largura máxima 35% menor (468 px).
 - Depoimentos alternam a cada dez segundos, com card central em destaque
@@ -161,3 +161,8 @@ negócio; os depoimentos criados para composição continuam identificados como
 exemplos sem vínculo com pacientes reais.
 A galeria acumula frações de pixel antes de atualizar o scroll, garantindo
 movimento em navegadores que arredondam scrollLeft para valores inteiros.
+
+As 18 imagens dos seis tratamentos foram fornecidas pelo usuário e estão
+em `assets/images/tratamentos/`. Cada ID tem a imagem principal (`id.png`),
+antes (`id-antes.png`) e depois (`id-depois.png`), vinculados em `src/config.mjs`.
+Os arquivos PNG originais foram preservados e mantêm proporção 1:1.

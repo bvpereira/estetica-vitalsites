@@ -77,8 +77,10 @@ const treatmentDetails = {
 
 for (const treatment of treatments) {
   Object.assign(treatment, treatmentDetails[treatment.id]);
-  treatment.before = { src: '', alt: `IMAGEM ANTES: ${treatment.title}` };
-  treatment.after = { src: '', alt: `IMAGEM DEPOIS: ${treatment.title}` };
+  treatment.image.src = `/assets/images/tratamentos/${treatment.id}.png`;
+  treatment.image.alt = treatment.image.alt.replace('IMAGEM: ', '');
+  treatment.before = { src: `/assets/images/tratamentos/${treatment.id}-antes.png`, alt: `Imagem antes: ${treatment.title}` };
+  treatment.after = { src: `/assets/images/tratamentos/${treatment.id}-depois.png`, alt: `Imagem depois: ${treatment.title}` };
 }
 
 export const results = [
