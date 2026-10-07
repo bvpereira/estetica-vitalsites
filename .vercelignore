@@ -2,4 +2,6 @@
 .git/
 .gitignore
 README.md
+AGENTS.md
+tests/
 **/.gitkeep
