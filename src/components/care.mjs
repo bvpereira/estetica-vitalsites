@@ -4,7 +4,7 @@ import { escape, eyebrow, icon, photo, whatsapp } from './shared.mjs';
 export function introduction() {
   return `<section class="section introduction" id="introducao" aria-labelledby="introduction-title">
     <div class="intro-visual">${photo(images.introduction, 'intro-photo')}<span class="image-caption">Cuidado em cada detalhe.</span></div>
-    <div class="intro-copy reveal">${eyebrow('O jeito Aura de cuidar', '01')}
+    <div class="intro-copy reveal">${eyebrow('O jeito Aura de cuidar')}
       <h2 id="introduction-title">Cuidado que começa<br><em>entendendo você</em></h2>
       <p>Na ${escape(clinic.name)}, clínica de estética em ${escape(clinic.address.city)} - ${clinic.address.region}, cada cuidado começa com uma conversa. Entendemos suas características, necessidades e objetivos para criar um protocolo pensado especialmente para você.</p>
       <p>Em nosso espaço no ${escape(clinic.address.district)} de ${escape(clinic.address.city)}, unimos estética facial e corporal a um atendimento próximo e individualizado. O objetivo não é transformar quem você é, mas valorizar sua beleza de maneira natural e equilibrada.</p>
@@ -14,7 +14,7 @@ export function introduction() {
 
 export function treatmentSection() {
   return `<section class="section treatments" id="tratamentos" aria-labelledby="treatments-title">
-    <div class="section-heading reveal"><div>${eyebrow('Facial & corporal', '02')}<h2 id="treatments-title">Tratamentos<br><em>pensados para você</em></h2></div><p>Tecnologia, conhecimento e protocolos personalizados para cuidar do rosto e do corpo.</p></div>
+    <div class="section-heading reveal"><div>${eyebrow('Facial & corporal')}<h2 id="treatments-title">Tratamentos<br><em>pensados para você</em></h2></div><p>Tecnologia, conhecimento e protocolos personalizados para cuidar do rosto e do corpo.</p></div>
     <div class="treatment-carousel" data-treatments><div class="treatment-viewport" tabindex="0" aria-label="Tratamentos. Use as setas do teclado ou deslize para navegar."><div class="treatment-grid">${treatments.map((treatment, index) => `<article class="treatment treatment-${index + 1}">
       <div class="treatment-image">${photo(treatment.image)}<span class="treatment-number">${String(index + 1).padStart(2, '0')}</span></div>
       <p class="treatment-category">${treatment.category}</p><h3>${treatment.title}</h3><p class="treatment-description">${treatment.summary}</p>
@@ -40,7 +40,7 @@ export function differentials() {
 
 export function about() {
   return `<section class="section about" id="sobre" aria-labelledby="about-title">
-    <div class="about-copy reveal">${eyebrow('Um olhar atento para você', '03')}<h2 id="about-title">Beleza começa<br>com <em>confiança</em></h2>
+    <div class="about-copy reveal">${eyebrow('Um olhar atento para você')}<h2 id="about-title">Beleza começa<br>com <em>confiança</em></h2>
       <p>À frente da ${escape(clinic.name)}, <strong>${escape(clinic.professional)}</strong> acredita que estética deve estar diretamente ligada ao cuidado, autoestima e naturalidade.</p>
       <p>Cada protocolo é planejado individualmente, respeitando as características de cada paciente e buscando resultados equilibrados e harmoniosos.</p>
       <div class="professional-signature"><p>${escape(clinic.professional)}</p><span>${escape(clinic.specialty)}<br>${escape(clinic.practice)}</span></div>

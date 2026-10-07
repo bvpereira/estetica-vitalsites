@@ -3,7 +3,7 @@ import { escape, eyebrow, photo } from './shared.mjs';
 
 export function beforeAfter() {
   return `<section class="results-section" id="resultados" aria-labelledby="results-title"><div class="section">
-    <div class="section-heading reveal"><div>${eyebrow('Naturalidade em primeiro lugar', '04')}<h2 id="results-title">Resultados que respeitam<br><em>sua essência</em></h2></div><p>Cada resultado é único. Conheça algumas transformações realizadas com protocolos personalizados.</p></div>
+    <div class="section-heading reveal"><div>${eyebrow('Naturalidade em primeiro lugar')}<h2 id="results-title">Resultados que respeitam<br><em>sua essência</em></h2></div><p>Cada resultado é único. Conheça algumas transformações realizadas com protocolos personalizados.</p></div>
     <div class="comparison-component" data-comparison>
       <div class="comparison-heading"><h3 id="comparison-title">${results[0].title}</h3><p>Arraste para comparar <span aria-hidden="true">↔</span></p></div>
       ${results.map((result, index) => `<div class="comparison-panel" id="comparison-panel-${index}" role="tabpanel" aria-labelledby="comparison-tab-${index}" ${index ? 'hidden' : ''}>

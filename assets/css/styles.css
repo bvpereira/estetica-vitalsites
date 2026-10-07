@@ -31,7 +31,6 @@ strong { font-weight: 600; }
 .section { width: min(100% - var(--gutter) * 2, var(--page-width)); margin-inline: auto; }
 .icon { flex-shrink: 0; width: 20px; height: 20px; }
 .eyebrow { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .19em; line-height: 1.7; margin-bottom: 24px; display: flex; align-items: center; gap: 18px; }
-.eyebrow > span { color: var(--muted); font-size: 13px; letter-spacing: .05em; padding-right: 18px; border-right: 1px solid var(--line); }
 h1, h2, h3 { font-family: var(--serif); font-weight: 400; line-height: 1.05; letter-spacing: -.035em; }
 h2 { font-size: clamp(42px, 4.6vw, 68px); }
 h2 em, h1 em { font-weight: 400; color: #94675e; }
@@ -309,7 +308,6 @@ h1 { font-size: clamp(64px, 7.15vw, 109px); line-height: .99; }
   .scroll-note { bottom: 14px; font-size: 12px; }
   h2 { font-size: clamp(40px, 10.2vw, 56px); }
   .eyebrow { font-size: 12px; margin-bottom: 20px; }
-  .eyebrow > span { font-size: 13px; }
   .introduction { grid-template-columns: 1fr; gap: 35px; padding-block: 60px 75px; }
   .intro-copy { order: -1; }
   .intro-copy h2 { margin-bottom: 23px; }
@@ -642,3 +640,10 @@ html { scroll-padding-top: 24px; }
 /* Contact channels stacked consistently on all screen sizes. */
 .location-contact-row { flex-direction: column; gap: 0; align-items: flex-start; }
 .gallery-component { padding-bottom: 40px; }
+
+.clinic-amenities { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px; list-style: none; padding-block: 20px 64px; }
+.clinic-amenities li { display: flex; flex-direction: column; align-items: center; gap: 18px; text-align: center; }
+.amenity-icon { display: grid; place-items: center; width: 60px; height: 60px; border-radius: 50%; background: var(--brown); color: var(--cream); }
+.amenity-icon .icon { width: 28px; height: 28px; }
+.clinic-amenities p { font-family: var(--serif); font-size: 25px; line-height: 1.25; }
+@media (max-width: 700px) { .clinic-amenities { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 20px; padding-bottom: 48px; } .clinic-amenities p { font-size: 23px; } }

@@ -5,6 +5,10 @@ export function escape(value) {
 }
 
 const paths = {
+  accessibility: '<circle cx="12" cy="4" r="1.5"/><path d="m7 8 5-1 5 1M12 7v6l-4 7m4-7 4 7"/><path d="M7 12a6 6 0 1 0 10 5"/>',
+  snowflake: '<path d="M12 2v20M3.3 7l17.4 10M3.3 17 20.7 7m-12-3.5L12 7l3.3-3.5m-6.6 17L12 17l3.3 3.5M3 10l4-1-1-4m15 9-4 1 1 4M3 14l4 1-1 4m15-9-4-1 1-4"/>',
+  wifi: '<path d="M2 8a16 16 0 0 1 20 0M5 12a11 11 0 0 1 14 0m-11 4a6 6 0 0 1 8 0"/><circle cx="12" cy="20" r=".6"/>',
+  car: '<path d="m4 10 2-5h12l2 5v8h-2m-12 0H4v-8h16M8 18h8"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/>',
   arrow: '<path d="M5 12h14m-6-6 6 6-6 6"/>',
   diagonal: '<path d="M6 18 18 6M6 6h12v12"/>',
   chevron: '<path d="m9 5 7 7-7 7"/>',
@@ -31,6 +35,6 @@ export function whatsapp(label, className = 'button', message) {
 export function instagram(label, className = 'text-link') {
   return `<a class="${className}" href="${escape(clinic.instagram.url)}" target="_blank" rel="noopener noreferrer">${escape(label)}${icon('instagram')}</a>`;
 }
-export function eyebrow(text, number = '') {
-  return `<p class="eyebrow">${number ? `<span>${number}</span>` : ''}${text}</p>`;
+export function eyebrow(text) {
+  return `<p class="eyebrow">${text}</p>`;
 }

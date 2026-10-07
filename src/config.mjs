@@ -33,6 +33,13 @@ export const images = {
 
 export const heroValues = ['Atendimento personalizado', 'Tecnologia avançada', 'Resultados naturais', 'Estética facial e corporal', 'Cuidado em cada etapa', 'Sua essência em primeiro lugar'];
 
+export const amenities = [
+  { icon: 'accessibility', label: 'Banheiro adaptado' },
+  { icon: 'snowflake', label: 'Ambiente climatizado' },
+  { icon: 'wifi', label: 'Wi-Fi disponível' },
+  { icon: 'car', label: 'Estacionamento próximo' },
+];
+
 export const treatments = [
   { id: 'toxina', title: 'Toxina Botulínica', category: 'Expressão & leveza', description: 'Suavização de linhas de expressão para uma aparência mais descansada e natural.', image: { src: '', alt: 'IMAGEM: tratamento com toxina botulínica em clínica estética' } },
   { id: 'colageno', title: 'Bioestimulador de Colágeno', category: 'Firmeza & qualidade', description: 'Estimula a produção natural de colágeno, auxiliando na firmeza e qualidade da pele.', image: { src: '', alt: 'IMAGEM: tratamento com bioestimulador de colágeno' } },
