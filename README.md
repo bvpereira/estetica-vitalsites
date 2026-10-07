@@ -133,3 +133,17 @@ Nenhuma outra skill foi instalada.
 - Galeria da clínica com largura das imagens reduzida em 50%, badge e sem navegação.
 - Contato permanece junto do mapa, com a âncora `#contato`; seção repetida removida.
 - Rodapé com fundo escuro e texto claro.
+
+## Perguntas frequentes
+
+- Conteúdo: `src/faq.mjs`, com as dez perguntas e respostas fornecidas.
+- Seção: `src/components/faq.mjs`, imediatamente antes do rodapé, após o CTA final.
+- Accordion nativo `details/summary`, agrupado para abrir uma resposta por vez,
+  com fallback em `assets/js/faq.js`. Teclado e estado expandido são fornecidos
+  pela semântica nativa do navegador.
+- Estilos limitados às classes `faq-*`, mantendo as demais seções.
+- CTA usa `clinic.faqWhatsappMessage` e o número centralizado em `src/config.mjs`.
+- JSON-LD `FAQPage` gerado da mesma fonte das respostas visíveis, conforme
+  https://schema.org/FAQPage. O Google encerrou o recurso de rich results de FAQ
+  em maio de 2026; a marcação semântica não implica exibição especial na busca.
+  Fonte: https://developers.google.com/search/updates#may-2026

@@ -6,6 +6,7 @@ export const clinic = {
   phone: '(22) 99999-8888',
   whatsapp: '5522999998888',
   whatsappMessage: 'Olá! Vim pelo site da Aura Clínica Estética e gostaria de agendar uma avaliação.',
+  faqWhatsappMessage: 'Olá! Vim pelo site da Aura Clínica Estética e gostaria de tirar uma dúvida.',
   instagram: { handle: '@clinicadeesteticaro', url: 'https://instagram.com/clinicadeesteticaro' },
   address: {
     street: 'Rua João Viana, 10', district: 'Centro', city: 'Rio das Ostras', region: 'RJ', country: 'BR',

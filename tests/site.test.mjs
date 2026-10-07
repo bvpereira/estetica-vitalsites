@@ -5,6 +5,7 @@ import { clinic, maps, whatsappUrl, treatments } from '../src/config.mjs';
 import { validateConfig, validateHtml } from '../scripts/validate.mjs';
 import { escape, photo } from '../src/components/shared.mjs';
 import { wrapPosition } from '../assets/js/gallery.js';
+import { faqItems } from '../src/faq.mjs';
 
 test('contatos e URLs mantêm os dados centralizados, inclusive acentos nas mensagens', () => {
   validateConfig();
@@ -77,4 +78,27 @@ test('a clínica apresenta localização antes da galeria e o cuidado inclui aco
   assert.ok(html.includes('Cuide da sua recuperação'));
   assert.ok(html.includes('Acompanhe sua evolução'));
   assert.ok(html.includes('Planeje a continuidade do cuidado'));
+});
+
+test('FAQ tem dez respostas visíveis no HTML e dados estruturados correspondentes', () => {
+  const html = renderPage();
+  const schemas = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map(match => JSON.parse(match[1]));
+  const faqSchema = schemas.find(schema => schema['@type'] === 'FAQPage');
+  assert.equal(faqItems.length, 10);
+  assert.equal(faqSchema.mainEntity.length, 10);
+  const visibleFaq = html.slice(html.indexOf('id="faq"'), html.indexOf('<footer'));
+  assert.equal((visibleFaq.match(/<details /g) || []).length, 10);
+  for (const [index, item] of faqItems.entries()) {
+    const question = faqSchema.mainEntity[index];
+    assert.equal(question.name, item.question);
+    assert.equal(question.acceptedAnswer.text, item.paragraphs.join('\n\n'));
+    assert.ok(visibleFaq.includes(escape(item.question)));
+    for (const paragraph of item.paragraphs) assert.ok(visibleFaq.replaceAll('<strong>', '').replaceAll('</strong>', '').includes(escape(paragraph)));
+  }
+  assert.match(visibleFaq, /name="aura-faq"/);
+  assert.ok(html.indexOf('class="final-cta"') < html.indexOf('id="faq"'));
+  assert.ok(/<\/section>\s*<\/main>\s*$/.test(visibleFaq));
+  const cta = visibleFaq.match(/href="(https:\/\/wa\.me\/[^\"]+)"/)[1].replaceAll('&amp;', '&');
+  assert.equal(new URL(cta).pathname, `/${clinic.whatsapp}`);
+  assert.equal(new URL(cta).searchParams.get('text'), clinic.faqWhatsappMessage);
 });

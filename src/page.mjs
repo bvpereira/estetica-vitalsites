@@ -5,6 +5,8 @@ import { beforeAfter } from './components/results.mjs';
 import { clinicSection } from './components/clinic.mjs';
 import { finalCta, footer } from './components/contact-footer.mjs';
 import { escape } from './components/shared.mjs';
+import { faq } from './components/faq.mjs';
+import { faqStructuredData } from './faq.mjs';
 
 export function structuredData() {
   return {
@@ -42,6 +44,7 @@ export function renderPage() {
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/css/styles.css">
   <script type="application/ld+json">${JSON.stringify(structuredData()).replaceAll('<', '\\u003c')}</script>
+  <script type="application/ld+json">${JSON.stringify(faqStructuredData()).replaceAll('<', '\\u003c')}</script>
   <script type="module" src="/assets/js/main.js"></script>
 </head>
 <body>
@@ -57,6 +60,7 @@ ${howItWorks()}
 ${testimonials()}
 ${clinicSection()}
 ${finalCta()}
+${faq()}
 </main>
 ${footer()}
 </body>
