@@ -4,6 +4,7 @@ import { renderPage, structuredData } from '../src/page.mjs';
 import { clinic, maps, whatsappUrl } from '../src/config.mjs';
 import { validateConfig, validateHtml } from '../scripts/validate.mjs';
 import { escape, photo } from '../src/components/shared.mjs';
+import { wrapPosition } from '../assets/js/gallery.js';
 
 test('contatos e URLs mantêm os dados centralizados, inclusive acentos nas mensagens', () => {
   validateConfig();
@@ -35,4 +36,22 @@ test('fotos reais substituem placeholders sem link vazio e usam carregamento ade
 });
 test('o validador rejeita âncoras quebradas antes de publicar', () => {
   assert.throws(() => validateHtml(renderPage().replace('href="#tratamentos"', 'href="#inexistente"')), /Âncora inexistente/);
+});
+
+test('galeria mantém a posição visual ao atravessar os limites do loop em ambos os sentidos', () => {
+  assert.equal(wrapPosition(5200, 1000, 4200), 1000);
+  assert.equal(wrapPosition(999, 1000, 4200), 5199);
+  assert.equal(wrapPosition(1000 + 4200 * 5 + 150.5, 1000, 4200), 1150.5);
+  assert.equal(wrapPosition(1200, 1000, 4200), 1200);
+  assert.equal(wrapPosition(1200, 1000, 0), 1000);
+});
+
+test('a clínica apresenta localização antes da galeria e o cuidado inclui acompanhamento dos resultados', () => {
+  const html = renderPage();
+  assert.ok(html.indexOf('class="section location"') < html.indexOf('class="gallery-component"'));
+  assert.ok(html.indexOf('<iframe') < html.indexOf('class="gallery-component"'));
+  assert.ok(html.includes('data-gallery-toggle'));
+  assert.ok(html.includes('Cuide da sua recuperação'));
+  assert.ok(html.includes('Acompanhe sua evolução'));
+  assert.ok(html.includes('Planeje a continuidade do cuidado'));
 });

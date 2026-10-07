@@ -38,7 +38,8 @@ src/components/clinic.mjs         Galeria, localização e mapa
 src/components/contact-footer.mjs CTA, contato, footer e diálogo de orientação
 src/components/shared.mjs        Botões, ícones, marca e imagens reutilizáveis
 assets/css/styles.css            Estilos e responsividade
-assets/js/main.js                Menu, comparação, galeria e interações
+assets/js/main.js                Menu, comparação e interações
+assets/js/gallery.js             Galeria contínua, controles e pausas
 assets/images/                   Fotos futuras e favicon vetorial
 scripts/                         Build e validações
 tests/site.test.mjs               Verificações automatizadas
@@ -83,10 +84,16 @@ Google Maps. Com a URL configurada, abre o vídeo em nova aba.
 ## Interações e acessibilidade
 
 - Menu mobile com Escape, controle de foco e fechamento ao escolher uma seção.
-- Antes/depois sobreposto com mouse, touch e controle range para teclado.
+- Antes/depois sobreposto em formato 1:1, com mouse, touch e range para teclado.
 - Três resultados com tabs e navegação por setas, Home e End.
-- Galeria com dez fotos, snap nativo, swipe, arraste com mouse, setas,
-  indicadores, teclado e contador.
+- Galeria com dez fotos quadradas abaixo dos contatos e do mapa, movimento
+  automático contínuo, swipe, arraste com mouse, setas, indicadores e teclado.
+  Repetições visuais permitem o loop sem duplicar conteúdo acessível.
+  Pausa ao interagir, ao sair da tela ou trocar de aba; botão para pausar.
+  O movimento automático fica desligado com `prefers-reduced-motion`.
+- Seis etapas de cuidado: avaliação, protocolo, tratamento, recuperação,
+  acompanhamento da evolução e planejamento da continuidade.
+- Parágrafos de 16 px e textos de apoio ampliados para facilitar a leitura.
 - Animações respeitam `prefers-reduced-motion`; conteúdo visível sem JS.
 - WhatsApp fixo em faixa mobile, com espaço reservado e respeito à safe area.
 - Nenhum formulário, banco de dados ou autenticação.

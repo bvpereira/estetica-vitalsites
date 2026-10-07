@@ -1,4 +1,5 @@
 import { directionsVideoUrl } from './site-config.js';
+import { initGallery } from './gallery.js';
 
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 const header = document.querySelector('.site-header');
@@ -28,7 +29,7 @@ document.addEventListener('keydown', event => {
   if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
   else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
 });
-window.matchMedia('(min-width: 951px)').addEventListener('change', event => { if (event.matches) closeMenu(); });
+window.matchMedia('(min-width: 1151px)').addEventListener('change', event => { if (event.matches) closeMenu(); });
 function updateHeader() { header.classList.toggle('is-scrolled', window.scrollY > 12); }
 window.addEventListener('scroll', updateHeader, { passive: true });
 updateHeader();
@@ -100,83 +101,7 @@ resultTabs.forEach((tab, index) => {
   });
 });
 
-const gallery = document.querySelector('[data-gallery]');
-const viewport = gallery.querySelector('.gallery-viewport');
-const slides = [...gallery.querySelectorAll('[data-slide]')];
-const dots = [...gallery.querySelectorAll('[data-gallery-dot]')];
-const previous = gallery.querySelector('[data-gallery-prev]');
-const next = gallery.querySelector('[data-gallery-next]');
-let currentSlide = 0;
-function updateGallery(index) {
-  currentSlide = index;
-  slides.forEach((slide, i) => slide.classList.toggle('is-current', i === index));
-  dots.forEach((dot, i) => {
-    if (i === index) dot.setAttribute('aria-current', 'true');
-    else dot.removeAttribute('aria-current');
-  });
-  gallery.querySelector('[data-gallery-count]').textContent = String(index + 1).padStart(2, '0');
-  previous.disabled = index === 0;
-  next.disabled = index === slides.length - 1;
-}
-function goToSlide(index, smooth = true) {
-  const target = Math.max(0, Math.min(slides.length - 1, index));
-  const slideRect = slides[target].getBoundingClientRect();
-  const viewportRect = viewport.getBoundingClientRect();
-  const offset = slideRect.left + slideRect.width / 2 - (viewportRect.left + viewportRect.width / 2);
-  viewport.scrollTo({ left: viewport.scrollLeft + offset, behavior: smooth && !reducedMotion.matches ? 'smooth' : 'instant' });
-  updateGallery(target);
-}
-previous.addEventListener('click', () => goToSlide(currentSlide - 1));
-next.addEventListener('click', () => goToSlide(currentSlide + 1));
-dots.forEach((dot, index) => dot.addEventListener('click', () => goToSlide(index)));
-viewport.addEventListener('keydown', event => {
-  let target;
-  if (event.key === 'ArrowRight') target = currentSlide + 1;
-  if (event.key === 'ArrowLeft') target = currentSlide - 1;
-  if (event.key === 'Home') target = 0;
-  if (event.key === 'End') target = slides.length - 1;
-  if (target !== undefined) { event.preventDefault(); goToSlide(target); }
-});
-let scrollTimer;
-viewport.addEventListener('scroll', () => {
-  clearTimeout(scrollTimer);
-  scrollTimer = setTimeout(() => {
-    const viewportRect = viewport.getBoundingClientRect();
-    const center = viewportRect.left + viewportRect.width / 2;
-    let closest = 0;
-    let distance = Infinity;
-    slides.forEach((slide, index) => {
-      const rect = slide.getBoundingClientRect();
-      const delta = Math.abs(rect.left + rect.width / 2 - center);
-      if (delta < distance) { distance = delta; closest = index; }
-    });
-    updateGallery(closest);
-  }, 120);
-}, { passive: true });
-// Touch uses native momentum scrolling and snap; mouse drag uses pointer capture.
-let drag = null;
-viewport.addEventListener('pointerdown', event => {
-  if (event.pointerType !== 'mouse' || event.button !== 0) return;
-  drag = { id: event.pointerId, x: event.clientX, scroll: viewport.scrollLeft };
-  viewport.setPointerCapture(event.pointerId);
-  viewport.classList.add('is-dragging');
-});
-viewport.addEventListener('pointermove', event => {
-  if (drag && event.pointerId === drag.id) viewport.scrollLeft = drag.scroll - (event.clientX - drag.x);
-});
-function stopDrag(event) {
-  if (!drag || event.pointerId !== drag.id) return;
-  drag = null;
-  viewport.classList.remove('is-dragging');
-  if (viewport.hasPointerCapture(event.pointerId)) viewport.releasePointerCapture(event.pointerId);
-}
-viewport.addEventListener('pointerup', stopDrag);
-viewport.addEventListener('pointercancel', stopDrag);
-viewport.addEventListener('lostpointercapture', () => { drag = null; viewport.classList.remove('is-dragging'); });
-viewport.addEventListener('dragstart', event => event.preventDefault());
-let resizeTimer;
-window.addEventListener('resize', () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(() => goToSlide(currentSlide, false), 150); });
-updateGallery(0);
+initGallery(document.querySelector('[data-gallery]'), reducedMotion);
 
 const dialog = document.querySelector('.directions-dialog');
 document.querySelector('[data-directions]').addEventListener('click', () => {

@@ -54,6 +54,9 @@ export function howItWorks() {
     ['Agende sua avaliação', 'Entre em contato pelo WhatsApp e escolha o melhor horário.'],
     ['Criamos seu protocolo', 'Entendemos seus objetivos e indicamos as opções mais adequadas.'],
     ['Comece seu tratamento', 'Realizamos seu protocolo com acompanhamento personalizado.'],
+    ['Cuide da sua recuperação', 'Você recebe orientações para os cuidados após cada procedimento e pode esclarecer dúvidas com nossa equipe.'],
+    ['Acompanhe sua evolução', 'Nos retornos, avaliamos a resposta ao protocolo e conversamos sobre a evolução dos resultados.'],
+    ['Planeje a continuidade do cuidado', 'Revisamos seus objetivos e orientamos a manutenção conforme sua evolução, respeitando os tempos e as necessidades da sua pele.'],
   ];
   return `<section class="section how-it-works" aria-labelledby="steps-title"><div class="center-heading reveal">${eyebrow('Simples, próximo, personalizado')}<h2 id="steps-title">Seu cuidado <em>começa aqui</em></h2></div>
     <ol class="steps">${steps.map(([title, text], index) => `<li class="reveal"><span class="step-number">0${index + 1}</span><h3>${title}</h3><p>${text}</p></li>`).join('')}</ol>
