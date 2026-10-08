@@ -479,7 +479,7 @@ h1 { font-size: clamp(64px, 7.15vw, 109px); line-height: .99; }
 .hero-logo-photo img { position: absolute; inset: 0; object-fit: contain; }
 .hero-marquee { position: relative; overflow: hidden; border-block: 1px solid rgb(237 197 168 / 25%); padding-block: 23px; background: rgb(18 10 6 / 32%); }
 .hero-marquee-track { display: flex; width: max-content; animation: hero-ticker 45s linear infinite !important; }
-.hero-marquee ul { list-style: none; display: flex; justify-content: space-around; min-width: 100vw; gap: 46px; padding-right: 46px; flex-shrink: 0; }
+.hero-marquee ul { list-style: none; display: flex; justify-content: flex-start; gap: 46px; padding-right: 46px; flex-shrink: 0; }
 .hero-marquee li { display: flex; align-items: center; gap: 46px; font-size: 14px; letter-spacing: .03em; white-space: nowrap; }
 .hero-marquee li span { color: #d7ab87; font-size: 12px; }
 @keyframes hero-ticker { to { transform: translateX(-50%); } }
