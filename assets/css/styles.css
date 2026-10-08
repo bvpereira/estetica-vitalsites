@@ -656,7 +656,6 @@ html { scroll-padding-top: 24px; }
 .treatment-overlay .treatment-category { color: #edc5a8; font-size: 12px; }
 .treatment-overlay h3 { min-height: 0; max-width: none; margin-bottom: 14px; font-size: clamp(27px, 2.5vw, 34px); line-height: 1.1; }
 .treatment-overlay .treatment-description { color: #fff6ee; max-width: none; margin-bottom: 0; font-size: 16px; line-height: 1.6; }
-.care-story-title { font-size: 34px; margin-bottom: 24px; }
 .care-story-description { font-size: 19px; line-height: 1.8; }
 @media (min-width: 701px) and (max-width: 1100px) { .treatment-image, .treatment-2 .treatment-image, .treatment-5 .treatment-image { min-height: 520px; } }
 
