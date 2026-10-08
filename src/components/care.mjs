@@ -16,8 +16,7 @@ export function treatmentSection() {
   return `<section class="section treatments" id="tratamentos" aria-labelledby="treatments-title">
     <div class="section-heading reveal"><div>${eyebrow('Facial & corporal')}<h2 id="treatments-title">Tratamentos<br><em>pensados para você</em></h2></div><p>Tecnologia, conhecimento e protocolos personalizados para cuidar do rosto e do corpo.</p></div>
     <div class="treatment-carousel" data-treatments><div class="treatment-viewport" tabindex="0" aria-label="Tratamentos. Use as setas do teclado ou deslize para navegar."><div class="treatment-grid">${treatments.map((treatment, index) => `<article class="treatment treatment-${index + 1}">
-      <div class="treatment-image">${photo(treatment.image)}<span class="treatment-number">${String(index + 1).padStart(2, '0')}</span></div>
-      <p class="treatment-category">${treatment.category}</p><h3>${treatment.title}</h3><p class="treatment-description">${treatment.summary}</p>
+      <div class="treatment-image">${photo(treatment.image)}<div class="treatment-overlay"><p class="treatment-category">${treatment.category}</p><h3>${treatment.title}</h3><p class="treatment-description">${treatment.summary}</p></div></div>
       <button type="button" class="text-link" data-treatment-open="${treatment.id}" aria-haspopup="dialog" aria-controls="treatment-dialog-${treatment.id}">Saiba mais ${icon('arrow')}</button>
     </article>`).join('')}</div></div><div class="treatment-controls"><button type="button" class="round-button previous" data-treatment-prev aria-label="Tratamentos anteriores">${icon('arrow')}</button><div class="treatment-pages" data-treatment-pages aria-label="Páginas de tratamentos"></div><button type="button" class="round-button" data-treatment-next aria-label="Próximos tratamentos">${icon('arrow')}</button></div></div>
     <p class="section-footnote">A indicação de cada procedimento é definida em uma avaliação individualizada.</p>
@@ -65,12 +64,11 @@ export function howItWorks() {
 
 export function testimonials() {
   const quotes = [
-    ['Camila R.', 'Desde a primeira avaliação me senti muito segura. Todo o atendimento foi cuidadoso e o resultado ficou muito natural.'],
-    ['Fernanda M.', 'A clínica é linda e acolhedora. Gostei principalmente da atenção em explicar cada etapa do tratamento.'],
-    ['Juliana A.', 'Foi exatamente o que eu procurava: um tratamento personalizado e sem exageros.'],
+    ['Escuta e acolhimento', 'Uma conversa sobre seus objetivos, suas dúvidas e o que faz você se sentir bem é o ponto de partida do cuidado.'],
+    ['Clareza em cada etapa', 'Conheça as possibilidades do seu protocolo e receba orientações para entender cada etapa do tratamento.'],
+    ['Cuidado que continua', 'O acompanhamento da evolução e as orientações após o procedimento fazem parte de uma experiência de cuidado completa.'],
   ];
   return `<section class="testimonials" aria-labelledby="testimonials-title"><div class="section"><div class="section-heading reveal"><div>${eyebrow('Histórias de cuidado')}<h2 id="testimonials-title">Quem se cuida<br><em>com a Aura</em></h2></div><p>O cuidado se revela nos detalhes.<br>E na forma como você se sente.</p></div>
-    <div class="testimonial-carousel" role="region" aria-roledescription="carrossel" aria-label="Depoimentos ilustrativos" data-testimonials><div class="quotes">${quotes.map(([name, quote], index) => `<figure class="quote ${index === 0 ? 'is-active' : ''}" data-quote="${index}" data-position="${index === 0 ? 'center' : index === 1 ? 'right' : 'left'}" aria-hidden="${index !== 0}" aria-label="Depoimento de ${name}"><span class="quote-mark" aria-hidden="true">“</span><blockquote><p>${quote}</p></blockquote><figcaption>${name}<span>Relato ilustrativo</span></figcaption></figure>`).join('')}</div><div class="testimonial-controls"><button type="button" class="round-button previous" data-testimonial-prev aria-label="Depoimento anterior">${icon('arrow')}</button><button type="button" class="round-button" data-testimonial-next aria-label="Próximo depoimento">${icon('arrow')}</button></div></div>
-    <p class="section-footnote">Depoimentos de exemplo, sem vínculo com pacientes reais.</p>
+    <div class="testimonial-carousel" role="region" aria-roledescription="carrossel" aria-label="Experiência de cuidado" data-testimonials><div class="quotes">${quotes.map(([name, quote], index) => `<figure class="quote ${index === 0 ? 'is-active' : ''}" data-quote="${index}" data-position="${index === 0 ? 'center' : index === 1 ? 'right' : 'left'}" aria-hidden="${index !== 0}" aria-label="${name}"><h3 class="care-story-title">${name}</h3><p class="care-story-description">${quote}</p></figure>`).join('')}</div><div class="testimonial-controls"><button type="button" class="round-button previous" data-testimonial-prev aria-label="Mensagem anterior">${icon('arrow')}</button><button type="button" class="round-button" data-testimonial-next aria-label="Próxima mensagem">${icon('arrow')}</button></div></div>
   </div></section>`;
 }

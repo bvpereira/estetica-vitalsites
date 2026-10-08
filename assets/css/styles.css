@@ -648,3 +648,14 @@ html { scroll-padding-top: 24px; }
 .amenity-custom-icon { width: 28px; height: 28px; background: currentColor; mask: var(--amenity-image) center / contain no-repeat; -webkit-mask: var(--amenity-image) center / contain no-repeat; }
 .clinic-amenities p { font-family: var(--serif); font-size: 25px; line-height: 1.25; }
 @media (max-width: 700px) { .clinic-amenities { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 20px; padding-bottom: 48px; } .clinic-amenities p { font-size: 23px; } }
+
+/* Portrait treatment imagery with a readable, translucent text panel. */
+.treatment-image, .treatment-2 .treatment-image, .treatment-5 .treatment-image { aspect-ratio: 2 / 3; border-radius: 18px; overflow: hidden; margin-bottom: 18px; }
+.treatment-image .photo { border-radius: inherit; }
+.treatment-overlay { position: absolute; inset: auto 0 0; padding: clamp(20px, 2vw, 30px); background: rgb(49 34 28 / 88%); color: #fff6ee; text-align: center; }
+.treatment-overlay .treatment-category { color: #edc5a8; font-size: 12px; }
+.treatment-overlay h3 { min-height: 0; max-width: none; margin-bottom: 14px; font-size: clamp(27px, 2.5vw, 34px); line-height: 1.1; }
+.treatment-overlay .treatment-description { color: #fff6ee; max-width: none; margin-bottom: 0; font-size: 16px; line-height: 1.6; }
+.care-story-title { font-size: 34px; margin-bottom: 24px; }
+.care-story-description { font-size: 19px; line-height: 1.8; }
+@media (min-width: 701px) and (max-width: 1100px) { .treatment-image, .treatment-2 .treatment-image, .treatment-5 .treatment-image { min-height: 520px; } }

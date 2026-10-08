@@ -39,7 +39,9 @@ test('HTML de produção tem navegação e referências acessíveis válidas sem
   const html = renderPage();
   validateHtml(html);
   for (const id of ['inicio', 'introducao', 'tratamentos', 'sobre', 'resultados', 'clinica', 'contato']) assert.ok(html.includes(`id="${id}"`));
-  assert.ok(html.includes('Depoimentos de exemplo, sem vínculo com pacientes reais.'));
+  assert.ok(html.includes('Experiência de cuidado'));
+  assert.ok(!html.includes('Camila R.'));
+  assert.ok(!html.includes('Relato ilustrativo'));
   assert.ok(!html.includes('Clínica fictícia'));
   assert.ok(html.includes('role="tablist"'));
 });
