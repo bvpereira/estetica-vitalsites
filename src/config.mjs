@@ -124,3 +124,10 @@ export const maps = {
   embed: `https://maps.google.com/maps?q=${encodeURIComponent(clinic.address.full)}&output=embed`,
   search: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(clinic.address.full)}`,
 };
+
+// Perfis de demonstração para a prévia de layout; substituir antes da versão final.
+export const testimonialPreviewProfiles = [
+  { name: 'Mariana Oliveira', city: 'Rio das Ostras - RJ', image: '/assets/images/depoimento-1.jpg' },
+  { name: 'Rafael Santos', city: 'Rio das Ostras - RJ', image: '/assets/images/depoimento-2.jpg' },
+  { name: 'Helena Costa', city: 'Macaé - RJ', image: '/assets/images/depoimento-3.jpg' },
+];
