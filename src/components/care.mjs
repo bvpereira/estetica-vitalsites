@@ -64,9 +64,9 @@ export function howItWorks() {
 
 export function testimonials() {
   const quotes = [
-    ['Escuta e acolhimento', 'Uma conversa sobre seus objetivos, suas dúvidas e o que faz você se sentir bem é o ponto de partida do cuidado.'],
-    ['Clareza em cada etapa', 'Conheça as possibilidades do seu protocolo e receba orientações para entender cada etapa do tratamento.'],
-    ['Cuidado que continua', 'O acompanhamento da evolução e as orientações após o procedimento fazem parte de uma experiência de cuidado completa.'],
+    ['Escuta e acolhimento', 'Desde a avaliação, me senti acolhida. Pude conversar sobre minhas dúvidas com tranquilidade e gostei da atenção aos meus objetivos.'],
+    ['Clareza em cada etapa', 'Gostei de receber explicações claras sobre as opções de tratamento. Entender cada etapa me deixou mais à vontade para decidir.'],
+    ['Cuidado que continua', 'A atenção continuou depois do atendimento. Recebi orientações para os cuidados em casa e pude esclarecer minhas dúvidas durante o acompanhamento.'],
   ];
   return `<section class="testimonials" aria-labelledby="testimonials-title"><div class="section"><div class="section-heading reveal"><div>${eyebrow('Histórias de cuidado')}<p class="testimonial-preview-label">Prévia de layout · perfis de demonstração</p><h2 id="testimonials-title">Quem se cuida<br><em>com a Aura</em></h2></div><p>O cuidado se revela nos detalhes.<br>E na forma como você se sente.</p></div>
     <div class="testimonial-carousel" role="region" aria-roledescription="carrossel" aria-label="Experiência de cuidado" data-testimonials><div class="quotes">${quotes.map(([name, quote], index) => `<figure class="quote ${index === 0 ? 'is-active' : ''}" data-quote="${index}" data-position="${index === 0 ? 'center' : index === 1 ? 'right' : 'left'}" aria-hidden="${index !== 0}" aria-label="${name}"><h3 class="care-story-title">${name}</h3><p class="care-story-description">${quote}</p><figcaption class="testimonial-profile"><img src="${escape(testimonialPreviewProfiles[index].image)}" alt="" width="64" height="64" loading="lazy" decoding="async"><div><strong>${escape(testimonialPreviewProfiles[index].name)}</strong><span>${escape(testimonialPreviewProfiles[index].city)}</span></div></figcaption></figure>`).join('')}</div><div class="testimonial-controls"><button type="button" class="round-button previous" data-testimonial-prev aria-label="Mensagem anterior">${icon('arrow')}</button><button type="button" class="round-button" data-testimonial-next aria-label="Próxima mensagem">${icon('arrow')}</button></div></div>

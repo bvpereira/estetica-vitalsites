@@ -665,3 +665,16 @@ html { scroll-padding-top: 24px; }
 .testimonial-profile img { width: 64px; height: 64px; object-fit: cover; border-radius: 50%; flex-shrink: 0; }
 .testimonial-profile strong { display: block; font-family: var(--sans); font-size: 16px; line-height: 1.5; }
 .testimonial-profile span { display: block; color: var(--muted); font-size: 14px; line-height: 1.6; }
+
+/* Mobile composition: portrait background, logo first and larger gallery. */
+@media (max-width: 700px) {
+  body { padding-bottom: 0; }
+  .hero-inner { display: flex; flex-direction: column; align-items: stretch; gap: 0; min-height: 0; }
+  .hero-background { container-type: size; }
+  .hero-backdrop img { inset: auto; top: 50%; left: 50%; width: 100cqh; height: 100cqw; max-width: none; transform: translate(-50%, -50%) rotate(-90deg); object-fit: cover; }
+  .hero-logo { order: -1; margin: 36px auto 0; }
+  .treatment-pages { display: none; }
+  .floating-whatsapp { display: none; }
+  .gallery-slide { flex-basis: 64.5vw; }
+  .gallery-track { padding-inline: 17.75vw; }
+}
