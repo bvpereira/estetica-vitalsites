@@ -79,6 +79,11 @@ const dialog = document.querySelector('.directions-dialog');
 document.querySelector('[data-directions]').addEventListener('click', () => {
   dialog.showModal();
   document.body.classList.add('dialog-open');
+  const video = dialog.querySelector('video');
+  if (video) {
+    video.currentTime = 0;
+    video.play().catch(() => { /* Native controls remain available if playback is blocked. */ });
+  }
 });
 dialog.addEventListener('close', () => {
   dialog.querySelector('video')?.pause();

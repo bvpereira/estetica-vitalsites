@@ -145,7 +145,7 @@ h1 { font-size: clamp(64px, 7.15vw, 109px); line-height: .99; }
 .steps { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 45px 65px; margin-bottom: 45px; }
 .steps li { border-top: 1px solid var(--line); padding-top: 24px; }
 .step-number { display: block; font-family: var(--serif); font-size: 52px; line-height: 1; color: #94675e; margin-bottom: 24px; }
-.steps h3 { font-size: 29px; margin-bottom: 16px; }
+.steps h3 { font-size: 29px; margin-bottom: 16px; font-weight: 700; }
 .steps p { font-size: 16px; color: var(--muted); }
 .center-actions { text-align: center; }
 .testimonials { padding-block: 90px; background: #efe8e2; }
@@ -688,4 +688,10 @@ html { scroll-padding-top: 24px; }
   .directions-video-dialog { width: min(calc(96dvh * 9 / 16), calc(100vw - 12px)); max-height: 96dvh; }
   .directions-video { max-height: 96dvh; }
   .cta-actions .instagram-outline { width: 100%; justify-content: center; }
+}
+
+@media (max-width: 700px) {
+  .intro-photo { height: auto; aspect-ratio: 4 / 4.6; border-radius: 110px 18px 110px 18px; }
+  .intro-photo img { position: absolute; inset: 0; }
+  .intro-visual::before { border-radius: 110px 18px 110px 18px; }
 }
