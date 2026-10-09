@@ -706,13 +706,13 @@ html { scroll-padding-top: 24px; }
 .gallery-fade-slide .gallery-photo { height: 100%; width: 100%; border-radius: 0; }
 .gallery-fade-slide figcaption { position: absolute; right: 16px; bottom: 16px; padding: 8px 14px; border-radius: 30px; background: #f7f3ef; color: var(--brown); font-size: 13px; }
 .animated-underline { position: relative; display: inline-block; padding-bottom: .12em; }
-.animated-underline::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: .09em; border-radius: 50% 20% 45% 25%; background: #b98c83; transform-origin: left; transform: scaleX(0) rotate(-1deg); }
+.animated-underline::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: .09em; border-radius: 50% 20% 45% 25%; background: #b98c83; transform-origin: left; transform: scaleX(0); }
 .differentials .animated-underline::after { animation: care-underline 4s ease-in-out infinite !important; }
 @keyframes care-underline {
-  0% { transform-origin: left; transform: scaleX(0) rotate(-1deg); opacity: 0; }
-  20%, 65% { transform-origin: left; transform: scaleX(1) rotate(-1deg); opacity: 1; }
-  66% { transform-origin: right; transform: scaleX(1) rotate(-1deg); opacity: 1; }
-  90%, 100% { transform-origin: right; transform: scaleX(0) rotate(-1deg); opacity: 0; }
+  0% { transform-origin: left; transform: scaleX(0); opacity: 0; }
+  20%, 65% { transform-origin: left; transform: scaleX(1); opacity: 1; }
+  66% { transform-origin: right; transform: scaleX(1); opacity: 1; }
+  90%, 100% { transform-origin: right; transform: scaleX(0); opacity: 0; }
 }
 @media (max-width: 700px) {
   .clinic-showcase { grid-template-columns: 1fr; gap: 48px; padding-bottom: 56px; }
