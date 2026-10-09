@@ -461,14 +461,10 @@ h1 { font-size: clamp(64px, 7.15vw, 109px); line-height: .99; }
 /* Hero with the supplied banner and transparent logo. */
 .hero-dark { display: block; padding: 0; position: relative; background: #21140d; color: #fff4e7; isolation: isolate; }
 .hero-background { position: absolute; inset: 0; z-index: -2; overflow: hidden; }
-.hero-backdrop { border-radius: 0; }
-.hero-backdrop { transform: scale(1.04); }
-@media (prefers-reduced-motion: no-preference) {
-  .hero-backdrop { animation: hero-background-drift 18s ease-in-out infinite alternate; }
-}
+.hero-backdrop { border-radius: 0; transform: scale(1.04); animation: hero-background-drift 12s ease-in-out infinite alternate !important; }
 @keyframes hero-background-drift {
-  from { transform: scale(1.04) translate(-.6%, -.4%); }
-  to { transform: scale(1.1) translate(.6%, .4%); }
+  from { transform: scale(1.04) translate(-1%, -.5%); }
+  to { transform: scale(1.18) translate(1%, .5%); }
 }
 .hero-backdrop img { position: absolute; inset: 0; object-fit: cover; object-position: center; }
 .hero-dark::before { content: ''; position: absolute; inset: 0; background: rgb(18 10 6 / 18%); z-index: -1; }
