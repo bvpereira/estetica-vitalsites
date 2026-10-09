@@ -1,4 +1,3 @@
-import { directionsVideoUrl } from './site-config.js';
 import { initGallery } from './gallery.js';
 import { initTreatments, initTreatmentDialogs, initTestimonials } from './carousels.js';
 import { initFaq } from './faq.js';
@@ -78,10 +77,12 @@ initTestimonials(document.querySelector('[data-testimonials]'));
 initFaq(document.querySelector('#faq'));
 const dialog = document.querySelector('.directions-dialog');
 document.querySelector('[data-directions]').addEventListener('click', () => {
-  if (directionsVideoUrl) {
-    const url = new URL(directionsVideoUrl);
-    if (url.protocol === 'https:') window.open(url.href, '_blank', 'noopener,noreferrer');
-  } else dialog.showModal();
+  dialog.showModal();
+  document.body.classList.add('dialog-open');
+});
+dialog.addEventListener('close', () => {
+  dialog.querySelector('video')?.pause();
+  document.body.classList.remove('dialog-open');
 });
 dialog.querySelector('.dialog-close').addEventListener('click', () => dialog.close());
 dialog.addEventListener('click', event => {

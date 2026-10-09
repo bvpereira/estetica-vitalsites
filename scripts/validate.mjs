@@ -6,7 +6,7 @@ export function validateConfig() {
   assert.equal(new URL(whatsappUrl()).searchParams.get('text'), clinic.whatsappMessage);
   assert.equal(new URL(maps.search).searchParams.get('query'), clinic.address.full);
   assert.equal(new URL(maps.embed).searchParams.get('q'), clinic.address.full);
-  for (const value of [clinic.siteUrl, clinic.instagram.url, ...(clinic.directionsVideoUrl ? [clinic.directionsVideoUrl] : [])]) assert.equal(new URL(value).protocol, 'https:');
+  for (const value of [clinic.siteUrl, clinic.instagram.url, ...(clinic.directionsVideoUrl && !clinic.directionsVideoUrl.startsWith('/assets/videos/') ? [clinic.directionsVideoUrl] : [])]) assert.equal(new URL(value).protocol, 'https:');
   assert.equal(treatments.length, 6);
   assert.equal(results.length, 3);
   assert.equal(gallery.length, 10);

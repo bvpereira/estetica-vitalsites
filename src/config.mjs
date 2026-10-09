@@ -19,7 +19,7 @@ export const clinic = {
   ],
   siteUrl: 'https://estetica.vitalsites.com.br',
   // Insira aqui a URL HTTPS do vídeo quando estiver disponível.
-  directionsVideoUrl: '',
+  directionsVideoUrl: '/assets/videos/localizacao.mp4',
 };
 
 // Para substituir um placeholder, preencha src com /assets/images/nome-da-foto.webp.

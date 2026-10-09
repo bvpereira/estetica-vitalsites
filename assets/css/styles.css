@@ -461,11 +461,7 @@ h1 { font-size: clamp(64px, 7.15vw, 109px); line-height: .99; }
 /* Hero with the supplied banner and transparent logo. */
 .hero-dark { display: block; padding: 0; position: relative; background: #21140d; color: #fff4e7; isolation: isolate; }
 .hero-background { position: absolute; inset: 0; z-index: -2; overflow: hidden; }
-.hero-backdrop { border-radius: 0; transform: scale(1.04); animation: hero-background-drift 12s ease-in-out infinite alternate !important; }
-@keyframes hero-background-drift {
-  from { transform: scale(1.04) translate(-1%, -.5%); }
-  to { transform: scale(1.18) translate(1%, .5%); }
-}
+.hero-backdrop { border-radius: 0; }
 .hero-backdrop img { position: absolute; inset: 0; object-fit: cover; object-position: center; }
 .hero-dark::before { content: ''; position: absolute; inset: 0; background: rgb(18 10 6 / 18%); z-index: -1; }
 .hero-inner { display: grid; grid-template-columns: 1.1fr .9fr; align-items: center; gap: 8%; min-height: 736px; }
@@ -680,4 +676,16 @@ html { scroll-padding-top: 24px; }
   .floating-whatsapp { display: none; }
   .gallery-slide { flex-basis: 64.5vw; }
   .gallery-track { padding-inline: 17.75vw; }
+}
+
+.treatment-controls .round-button { background: var(--brown); color: var(--cream); border-color: var(--brown); }
+.treatment-controls .round-button:hover:not(:disabled) { background: #302421; }
+.cta-actions .instagram-outline { border: 1px solid #fff; color: #fff; padding: 15px 22px; border-radius: 3px; min-height: 54px; }
+.directions-video-dialog { padding: 0; width: min(420px, calc(92dvh * 9 / 16), calc(100vw - 24px)); max-width: none; max-height: 92dvh; background: #16120f; border: 0; overflow: hidden; }
+.directions-video { display: block; width: 100%; aspect-ratio: 9 / 16; max-height: 92dvh; object-fit: contain; background: #16120f; }
+.directions-video-dialog .dialog-close { top: 12px; right: 12px; z-index: 2; background: #302421; color: #fff; border-color: #fff; }
+@media (max-width: 700px) {
+  .directions-video-dialog { width: min(calc(96dvh * 9 / 16), calc(100vw - 12px)); max-height: 96dvh; }
+  .directions-video { max-height: 96dvh; }
+  .cta-actions .instagram-outline { width: 100%; justify-content: center; }
 }
