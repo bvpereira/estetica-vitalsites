@@ -26,8 +26,12 @@ export function icon(name, className = '') {
   return `<svg class="icon ${className}" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths[name] || paths.arrow}</svg>`;
 }
 export function photo(image, className = '', eager = false) {
-  if (image.src) return `<div class="photo ${className}"><img src="${escape(image.src)}" alt="${escape(image.alt)}" width="1200" height="1400" loading="${eager ? 'eager' : 'lazy'}" decoding="async" ${eager ? 'fetchpriority="high"' : ''}></div>`;
+  if (image.src) return `<div class="photo ${className}"><img src="${escape(image.src)}"${responsiveAttributes(image)} alt="${escape(image.alt)}" width="${image.width || 1200}" height="${image.height || 1400}" loading="${eager ? 'eager' : 'lazy'}" decoding="async" ${eager ? 'fetchpriority="high"' : ''}></div>`;
   return `<div class="photo placeholder ${className}" role="img" aria-label="${escape(image.alt)}"><span class="photo-mark" aria-hidden="true">a</span><span class="placeholder-label" aria-hidden="true">[${escape(image.alt)}]</span></div>`;
+}
+export function responsiveAttributes(image, sizes = image.sizes) {
+  if (!image.variants?.length) return '';
+  return ` srcset="${image.variants.map(variant => `${escape(variant.src)} ${variant.width}w`).join(', ')}" sizes="${escape(sizes)}"`;
 }
 export function whatsapp(label, className = 'button', message) {
   return `<a class="${className}" href="${escape(whatsappUrl(message))}" target="_blank" rel="noopener noreferrer">${escape(label)}${icon('diagonal')}</a>`;

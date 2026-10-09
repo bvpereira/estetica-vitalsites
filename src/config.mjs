@@ -24,11 +24,21 @@ export const clinic = {
 
 // Para substituir um placeholder, preencha src com /assets/images/nome-da-foto.webp.
 // Mantenha alt descritivo. Arquivos fora da Hero são carregados com lazy loading.
+const sectionImageSizes = '(max-width: 700px) 89vw, (max-width: 1440px) 44vw, 600px';
+export function responsiveImage(stem, alt, widths = [320, 640, 960, 1254], sizes = sectionImageSizes, sourceHeight = 1254, sourceWidth = 1254) {
+  const width = widths.at(-1);
+  return {
+    src: `/assets/images/${stem}-${width}.webp`, alt,
+    width, height: Math.round(sourceHeight * width / sourceWidth), sizes,
+    variants: widths.map(width => ({ src: `/assets/images/${stem}-${width}.webp`, width })),
+  };
+}
 export const images = {
-  hero: { src: '/assets/images/hero-background.png', alt: 'Fundo marrom escuro com detalhes dourados da Aura Clínica Estética' },
-  heroLogo: { src: '/assets/images/hero-logo.png', alt: 'Aura Clínica Estética — logo em tons de cobre e dourado' },
-  introduction: { src: '/assets/images/aura-recepcao.png', alt: 'Recepção acolhedora da Aura Clínica Estética em Rio das Ostras - RJ' },
-  professional: { src: '/assets/images/mariana-costa.png', alt: `${clinic.professional} em um ambiente da Aura Clínica Estética` },
+  // No celular o fundo gira 90° e sua largura acompanha a altura do banner.
+  hero: responsiveImage('hero-background', 'Fundo marrom escuro com detalhes dourados da Aura Clínica Estética', [960, 1440, 1916], '(max-width: 700px) 1200px, 100vw', 821, 1916),
+  heroLogo: responsiveImage('hero-logo', 'Aura Clínica Estética — logo em tons de cobre e dourado', [256, 450, 900], '(max-width: 680px) min(64vw, 285px), (max-width: 1150px) 38vw, 450px'),
+  introduction: responsiveImage('aura-recepcao', 'Recepção acolhedora da Aura Clínica Estética em Rio das Ostras - RJ'),
+  professional: responsiveImage('mariana-costa', `${clinic.professional} em um ambiente da Aura Clínica Estética`),
 };
 
 export const heroValues = ['Atendimento personalizado', 'Tecnologia avançada', 'Resultados naturais', 'Estética facial e corporal', 'Cuidado em cada etapa', 'Sua essência em primeiro lugar'];
@@ -84,10 +94,9 @@ const treatmentDetails = {
 
 for (const treatment of treatments) {
   Object.assign(treatment, treatmentDetails[treatment.id]);
-  treatment.image.src = `/assets/images/tratamentos/${treatment.id}.png`;
-  treatment.image.alt = treatment.image.alt.replace('IMAGEM: ', '');
-  treatment.before = { src: `/assets/images/tratamentos/${treatment.id}-antes.png`, alt: `Imagem antes: ${treatment.title}` };
-  treatment.after = { src: `/assets/images/tratamentos/${treatment.id}-depois.png`, alt: `Imagem depois: ${treatment.title}` };
+  treatment.image = responsiveImage(`tratamentos/${treatment.id}`, treatment.image.alt.replace('IMAGEM: ', ''), undefined, '(max-width: 700px) 89vw, (max-width: 950px) 42vw, (max-width: 1440px) 28vw, 406px');
+  treatment.before = responsiveImage(`tratamentos/${treatment.id}-antes`, `Imagem antes: ${treatment.title}`, undefined, '(max-width: 680px) 80vw, 468px');
+  treatment.after = responsiveImage(`tratamentos/${treatment.id}-depois`, `Imagem depois: ${treatment.title}`, undefined, '(max-width: 680px) 80vw, 468px');
 }
 
 export const results = [
@@ -127,7 +136,7 @@ export const maps = {
 
 // Perfis de demonstração para a prévia de layout; substituir antes da versão final.
 export const testimonialPreviewProfiles = [
-  { name: 'Mariana Oliveira', city: 'Rio das Ostras - RJ', image: '/assets/images/depoimento-1.jpg' },
-  { name: 'Rafael Santos', city: 'Rio das Ostras - RJ', image: '/assets/images/depoimento-2.jpg' },
-  { name: 'Helena Costa', city: 'Macaé - RJ', image: '/assets/images/depoimento-3.jpg' },
+  { name: 'Mariana Oliveira', city: 'Rio das Ostras - RJ', image: responsiveImage('depoimento-1', '', [64, 128], '64px', 922, 929) },
+  { name: 'Rafael Santos', city: 'Rio das Ostras - RJ', image: responsiveImage('depoimento-2', '', [64, 128], '64px', 918, 927) },
+  { name: 'Helena Costa', city: 'Macaé - RJ', image: responsiveImage('depoimento-3', '', [64, 128], '64px', 929, 924) },
 ];

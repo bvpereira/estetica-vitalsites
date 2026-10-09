@@ -56,6 +56,17 @@ O mapa depende do Google Maps, com iframe lazy loading.
 
 ## Substituir as imagens
 
+As fotos fornecidas têm cópias WebP responsivas, selecionadas pelo navegador via
+`srcset` e `sizes`. Os PNGs/JPGs originais continuam preservados. Dimensões,
+variantes e tamanhos de exibição ficam em `src/config.mjs`; ajuste `sizes` quando
+alterar a largura das seções. O fundo da Hero considera também a rotação mobile.
+
+Para recriar as cópias depois de substituir um original, execute
+`python scripts/optimize-images.py` com Pillow disponível. Essa ferramenta é
+somente de preparação: o build e o site continuam sem dependências adicionais.
+As imagens não são recortadas nem ampliadas; a transparência do logo é preservada.
+O build verifica a existência de todos os candidatos do `srcset`.
+
 1. Adicione fotos otimizadas (preferencialmente WebP/AVIF) em `assets/images/`.
 2. Em `src/config.mjs`, preencha `src` com `/assets/images/nome-da-foto.webp`.
 3. Atualize `alt` com uma descrição da foto real, removendo o rótulo `IMAGEM`.

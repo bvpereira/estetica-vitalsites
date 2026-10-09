@@ -14,6 +14,13 @@ export function validateConfig() {
   for (const image of allImages) {
     assert.ok(image.alt.trim(), 'Cada imagem precisa de descrição.');
     if (image.src) assert.match(image.src, /^\/assets\/images\/[a-zA-Z0-9_./-]+\.(webp|avif|jpe?g|png|svg)$/i, 'Utilize uma imagem local em /assets/images/.');
+    if (image.variants) {
+      assert.ok(image.width > 0 && image.height > 0 && image.sizes, 'Imagem responsiva precisa de dimensões e sizes.');
+      for (const variant of image.variants) {
+        assert.match(variant.src, /^\/assets\/images\/[a-zA-Z0-9_./-]+\.webp$/);
+        assert.ok(variant.width > 0);
+      }
+    }
   }
 }
 
@@ -46,5 +53,13 @@ export function validateHtml(html) {
   assert.equal(schema.telephone, `+${clinic.whatsapp}`);
   assert.ok(!('aggregateRating' in schema), 'Não publicar avaliações fictícias como classificação real.');
   const assets = [...html.matchAll(/(?:href|src)="(\/assets\/[^"?]+)"/g)].map(match => match[1]);
+  for (const match of html.matchAll(/\bsrcset="([^"]+)"/g)) {
+    for (const candidate of match[1].split(',')) {
+      const [asset, descriptor] = candidate.trim().split(/\s+/);
+      assert.match(asset, /^\/assets\/images\/[a-zA-Z0-9_./-]+\.webp$/);
+      assert.match(descriptor, /^\d+w$/);
+      assets.push(asset);
+    }
+  }
   return [...new Set(assets)];
 }

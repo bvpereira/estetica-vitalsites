@@ -1,7 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { renderPage, structuredData } from '../src/page.mjs';
-import { clinic, maps, whatsappUrl, treatments } from '../src/config.mjs';
+import { clinic, images, maps, whatsappUrl, treatments } from '../src/config.mjs';
+import { readFile, stat } from 'node:fs/promises';
 import { validateConfig, validateHtml } from '../scripts/validate.mjs';
 import { escape, photo } from '../src/components/shared.mjs';
 import { faqItems } from '../src/faq.mjs';
@@ -27,10 +28,10 @@ test('cada tratamento abre seu próprio diálogo e oferece duas formas de voltar
 
 test('Hero usa os arquivos enviados e a galeria não apresenta navegação nem numeração nas legendas', () => {
   const html = renderPage();
-  assert.ok(html.includes('/assets/images/hero-background.png'));
-  assert.ok(html.includes('/assets/images/hero-logo.png'));
-  assert.ok(html.includes('/assets/images/aura-recepcao.png'));
-  assert.ok(html.includes('/assets/images/mariana-costa.png'));
+  assert.ok(html.includes('/assets/images/hero-background-1916.webp'));
+  assert.ok(html.includes('/assets/images/hero-logo-900.webp'));
+  assert.ok(html.includes('/assets/images/aura-recepcao-1254.webp'));
+  assert.ok(html.includes('/assets/images/mariana-costa-1254.webp'));
   for (const removed of ['Descubra a Aura', 'Essência preservada.', 'Um novo olhar para o cuidado', 'Conheça quem cuida de você', 'Será um prazer receber você', 'data-gallery-prev', 'data-gallery-next']) assert.ok(!html.includes(removed), removed);
   assert.ok(html.includes('<figcaption>Recepção</figcaption>'));
 });
@@ -62,6 +63,34 @@ test('fotos reais substituem placeholders sem link vazio e usam carregamento ade
 });
 test('o validador rejeita âncoras quebradas antes de publicar', () => {
   assert.throws(() => validateHtml(renderPage().replace('href="#tratamentos"', 'href="#inexistente"')), /Âncora inexistente/);
+});
+
+test('fotos responsivas existem, têm dimensões corretas e reduzem os downloads do diagnóstico', async () => {
+  const html = renderPage();
+  const photos = [...Object.values(images), ...treatments.flatMap(item => [item.image, item.before, item.after])];
+  for (const image of photos) {
+    assert.ok(html.includes(`src="${image.src}"`));
+    const tag = photo(image);
+    assert.ok(tag.includes(`width="${image.width}" height="${image.height}"`));
+    assert.ok(tag.includes(`sizes="${image.sizes}"`));
+    for (const variant of image.variants) {
+      const file = new URL(`..${variant.src}`, import.meta.url);
+      const bytes = await readFile(file);
+      assert.equal(bytes.toString('ascii', 0, 4), 'RIFF');
+      assert.equal(bytes.toString('ascii', 8, 12), 'WEBP');
+      assert.ok(tag.includes(`${variant.src} ${variant.width}w`));
+      assert.ok(validateHtml(html).includes(variant.src));
+    }
+  }
+  const audited = [images.hero, images.heroLogo, images.introduction, ...treatments.filter(item => item.id !== 'corporal').map(item => item.image)];
+  let originalBytes = 0;
+  let optimizedBytes = 0;
+  for (const image of audited) {
+    originalBytes += (await stat(new URL(`..${image.src.replace(/-\d+\.webp$/, '.png')}`, import.meta.url))).size;
+    optimizedBytes += (await stat(new URL(`..${image.src}`, import.meta.url))).size;
+  }
+  assert.ok(optimizedBytes < originalBytes * .15, 'Mesmo as maiores variantes devem economizar pelo menos 85%.');
+  assert.equal((html.match(/fetchpriority="high"/g) || []).length, 2);
 });
 
 
