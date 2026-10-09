@@ -1,4 +1,7 @@
 /* Aura — editorial, warm, intentionally restrained. */
+@font-face { font-family: 'Cormorant Garamond'; font-style: normal; font-weight: 300 700; font-display: swap; src: url('/assets/fonts/cormorant-garamond-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Cormorant Garamond'; font-style: italic; font-weight: 300 700; font-display: swap; src: url('/assets/fonts/cormorant-garamond-italic.woff2') format('woff2'); }
+@font-face { font-family: 'Manrope'; font-style: normal; font-weight: 200 800; font-display: swap; src: url('/assets/fonts/manrope.woff2') format('woff2'); }
 :root {
   --cream: #f7f3ef;
   --nude: #ddd0c5;
@@ -523,10 +526,11 @@ body.dialog-open { overflow: hidden; }
 
 /* The focused testimonial is readable; the two side cards are secondary. */
 .testimonial-carousel { position: relative; }
-.testimonial-carousel .quotes { display: block; position: relative; min-height: 410px; overflow: hidden; }
-.testimonial-carousel .quote { position: absolute; top: 18px; left: 50%; width: min(52%, 530px); min-height: 350px; padding: 35px; border: 1px solid #d8c9bc; border-radius: 9px; background: #f7f3ef; transform: translateX(-50%); transition: transform .6s, filter .6s, opacity .6s; }
-.quote[data-position='left'] { transform: translateX(-142%) scale(.88); filter: blur(3px); opacity: .42; z-index: 0; }
-.quote[data-position='right'] { transform: translateX(42%) scale(.88); filter: blur(3px); opacity: .42; z-index: 0; }
+.testimonial-carousel .quotes { display: grid; grid-template-columns: 1fr; align-items: start; position: relative; min-height: 410px; padding-block: 18px; overflow: hidden; }
+.testimonial-carousel .quote { grid-area: 1 / 1; justify-self: center; position: relative; width: min(52%, 530px); min-height: 350px; padding: 35px; border: 1px solid #d8c9bc; border-radius: 9px; background: #f7f3ef; transition: transform .6s, filter .6s, opacity .6s; }
+.quote[data-position='left'] { transform: translateX(-92%) scale(.88); filter: blur(3px); opacity: .42; z-index: 0; }
+.quote[data-position='right'] { transform: translateX(92%) scale(.88); filter: blur(3px); opacity: .42; z-index: 0; }
+.quote[data-position='center'] { transform: none; }
 .quote.is-active { z-index: 2; filter: none; opacity: 1; }
 .testimonial-carousel .quote blockquote { font-size: 28px; }
 .testimonial-controls { display: flex; align-items: center; justify-content: center; gap: 25px; margin-top: 15px; }

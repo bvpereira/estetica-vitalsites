@@ -61,5 +61,6 @@ export function validateHtml(html) {
       assets.push(asset);
     }
   }
+  for (const match of html.matchAll(/url\(['"]?(\/assets\/[^'"\s)]+)['"]?\)/g)) assets.push(match[1]);
   return [...new Set(assets)];
 }

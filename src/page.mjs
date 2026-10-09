@@ -7,6 +7,12 @@ import { finalCta, footer } from './components/contact-footer.mjs';
 import { escape } from './components/shared.mjs';
 import { faq } from './components/faq.mjs';
 import { faqStructuredData } from './faq.mjs';
+import { readFileSync } from 'node:fs';
+
+// This single-page site ships its small compressed stylesheet with the HTML,
+// so the first paint never waits for a separate CSS request (even without JS).
+const styles = readFileSync(new URL('../assets/css/styles.css', import.meta.url), 'utf8')
+  .replace(/\/\*[\s\S]*?\*\//g, '').replace(/[\t ]+$/gm, '').trim();
 
 export function structuredData() {
   return {
@@ -39,13 +45,13 @@ export function renderPage() {
   <meta property="og:url" content="${clinic.siteUrl}/">
   <meta name="twitter:card" content="summary">
   <link rel="icon" href="/assets/images/favicon.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/css/styles.css">
+  <link rel="preload" href="/assets/fonts/cormorant-garamond-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/cormorant-garamond-italic.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/manrope.woff2" as="font" type="font/woff2" crossorigin>
+  <style>${styles}</style>
   <script type="application/ld+json">${JSON.stringify(structuredData()).replaceAll('<', '\\u003c')}</script>
   <script type="application/ld+json">${JSON.stringify(faqStructuredData()).replaceAll('<', '\\u003c')}</script>
-  <script type="module" src="/assets/js/main.js"></script>
+  <script defer src="/assets/js/site.js"></script>
 </head>
 <body>
 <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>

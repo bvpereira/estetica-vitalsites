@@ -7,7 +7,8 @@ export function initTreatments(root, reducedMotion) {
   let perPage = 3;
   let currentPage = 0;
   let totalPages = 2;
-  const offset = slide => slide.offsetLeft - slides[0].offsetLeft;
+  let offsets = [];
+  let pageStride = 1;
   function updateControls() {
     prev.disabled = currentPage === 0;
     next.disabled = currentPage === totalPages - 1;
@@ -15,11 +16,15 @@ export function initTreatments(root, reducedMotion) {
   }
   function goToPage(index, smooth = true) {
     currentPage = Math.max(0, Math.min(totalPages - 1, index));
-    viewport.scrollTo({ left: offset(slides[currentPage * perPage]), behavior: smooth && !reducedMotion.matches ? 'smooth' : 'instant' });
+    viewport.scrollTo({ left: offsets[currentPage * perPage] || 0, behavior: smooth && !reducedMotion.matches ? 'smooth' : 'instant' });
     updateControls();
   }
   function measure() {
+    // Read every dimension before creating buttons or updating scroll/styles.
+    const start = slides[0].offsetLeft;
+    offsets = slides.map(slide => slide.offsetLeft - start);
     perPage = Math.max(1, Math.round(viewport.clientWidth / slides[0].offsetWidth));
+    pageStride = (offsets[1] || viewport.clientWidth || 1) * perPage;
     totalPages = Math.ceil(slides.length / perPage);
     currentPage = Math.min(currentPage, totalPages - 1);
     pages.replaceChildren();
@@ -45,13 +50,18 @@ export function initTreatments(root, reducedMotion) {
   viewport.addEventListener('scroll', () => {
     clearTimeout(timer);
     timer = setTimeout(() => {
-      currentPage = Math.min(totalPages - 1, Math.round(viewport.scrollLeft / (offset(slides[1]) * perPage)));
+      currentPage = Math.min(totalPages - 1, Math.round(viewport.scrollLeft / pageStride));
       updateControls();
     }, 120);
   }, { passive: true });
-  let resizeTimer;
-  window.addEventListener('resize', () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(measure, 150); });
-  measure();
+  if ('ResizeObserver' in window) {
+    // Notifications run after layout; their dimensions can be read together.
+    new ResizeObserver(measure).observe(viewport);
+  } else {
+    let resizeTimer;
+    window.addEventListener('resize', () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(measure, 150); });
+    measure();
+  }
 }
 
 export function initTreatmentDialogs() {
@@ -77,9 +87,6 @@ export function initTestimonials(root) {
   let current = 0;
   let timer;
   let visible = false;
-  function measure() {
-    root.querySelector('.quotes').style.minHeight = `${Math.max(...cards.map(card => card.offsetHeight)) + 36}px`;
-  }
   function select(index) {
     current = (index + cards.length) % cards.length;
     cards.forEach((card, i) => {
@@ -98,9 +105,5 @@ export function initTestimonials(root) {
   if ('IntersectionObserver' in window) new IntersectionObserver(entries => { visible = entries[0].isIntersecting; refresh(); }, { threshold: .15 }).observe(root);
   else visible = true;
   select(0);
-  measure();
-  document.fonts?.ready.then(measure);
-  let resizeTimer;
-  window.addEventListener('resize', () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(measure, 150); });
   refresh();
 }

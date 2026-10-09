@@ -1,13 +1,13 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { initTestimonials } from '../assets/js/carousels.js';
+import { initTestimonials, initTreatments } from '../assets/js/carousels.js';
 
 test('depoimentos alternam em dez segundos e mantêm navegação sem controle de pausa', t => {
   const buttons = Object.fromEntries(['prev', 'next'].map(name => [name, {
     textContent: '', addEventListener(_, handler) { this.click = handler; },
   }]));
   const cards = Array.from({ length: 3 }, () => ({
-    offsetHeight: 300, dataset: {}, classList: { toggle() {} }, setAttribute() {},
+    get offsetHeight() { throw new Error('Depoimentos devem dimensionar-se pelo CSS.'); }, dataset: {}, classList: { toggle() {} }, setAttribute() {},
   }));
   const quotes = { style: {} };
   const root = {
@@ -41,4 +41,46 @@ test('depoimentos alternam em dez segundos e mantêm navegação sem controle de
   document.hidden = true;
   events.visibilitychange();
   assert.equal(timers.size, 0);
+});
+
+test('tratamentos usam medidas em cache após alterar controles e ao navegar', t => {
+  let dirty = false;
+  let slideWidth = 300;
+  const read = value => { assert.equal(dirty, false, 'Leitura de layout após escrita no DOM'); return value; };
+  const slides = Array.from({ length: 6 }, (_, index) => ({
+    get offsetLeft() { return read(index * (slideWidth + 32)); },
+    get offsetWidth() { return read(slideWidth); },
+  }));
+  const viewport = {
+    get clientWidth() { return read(slideWidth * 3 + 64); }, scrollLeft: 0,
+    scrollTo({ left }) { this.scrollLeft = left; dirty = true; },
+    addEventListener(name, callback) { this[name] = callback; },
+  };
+  const button = () => ({ addEventListener(name, callback) { this[name] = callback; }, setAttribute() { dirty = true; } });
+  const prev = button(), next = button();
+  const pages = { children: [], replaceChildren() { this.children = []; dirty = true; }, append(item) { this.children.push(item); dirty = true; } };
+  const root = {
+    querySelectorAll: () => slides,
+    querySelector: selector => ({ '.treatment-viewport': viewport, '[data-treatment-prev]': prev, '[data-treatment-next]': next, '[data-treatment-pages]': pages })[selector],
+  };
+  const originals = ['window', 'document', 'ResizeObserver'].map(name => [name, Object.getOwnPropertyDescriptor(globalThis, name)]);
+  let resize;
+  Object.defineProperty(globalThis, 'window', { configurable: true, value: { ResizeObserver: true } });
+  Object.defineProperty(globalThis, 'document', { configurable: true, value: { createElement: button } });
+  Object.defineProperty(globalThis, 'ResizeObserver', { configurable: true, value: class { constructor(callback) { resize = callback; } observe() {} } });
+  t.after(() => originals.forEach(([name, descriptor]) => { if (descriptor) Object.defineProperty(globalThis, name, descriptor); else delete globalThis[name]; }));
+  initTreatments(root, { matches: true });
+  resize();
+  assert.equal(pages.children.length, 2);
+  next.click();
+  assert.equal(viewport.scrollLeft, 996);
+  assert.equal(next.disabled, true);
+  prev.click();
+  assert.equal(viewport.scrollLeft, 0);
+  // A new layout pass precedes ResizeObserver when the viewport changes.
+  dirty = false;
+  slideWidth = 220;
+  resize();
+  next.click();
+  assert.equal(viewport.scrollLeft, 756);
 });

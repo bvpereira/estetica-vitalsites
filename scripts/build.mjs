@@ -4,6 +4,7 @@ import path from 'node:path';
 import { renderPage } from '../src/page.mjs';
 import { clinic } from '../src/config.mjs';
 import { validateConfig, validateHtml } from './validate.mjs';
+import { bundleScripts } from './bundle.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const output = path.resolve(root, 'dist');
@@ -14,7 +15,7 @@ const assets = validateHtml(html);
 for (const asset of assets) {
   const assetPath = path.resolve(root, `.${asset}`);
   if (!assetPath.startsWith(path.join(root, 'assets') + path.sep)) throw new Error(`Recurso fora de assets: ${asset}`);
-  if (asset === '/assets/js/site-config.js') continue;
+  if (asset === '/assets/js/site-config.js' || asset === '/assets/js/site.js') continue;
   if (!(await stat(assetPath)).isFile()) throw new Error(`Arquivo não encontrado: ${asset}`);
 }
 // Only the verified, generated dist directory is replaced; sources stay intact.
@@ -24,6 +25,7 @@ await cp(path.join(root, 'assets'), path.join(output, 'assets'), {
   recursive: true, filter: source => path.basename(source) !== '.gitkeep',
 });
 await writeFile(path.join(output, 'assets/js/site-config.js'), `// Gerado a partir de src/config.mjs.\nexport const directionsVideoUrl = ${JSON.stringify(clinic.directionsVideoUrl)};\n`);
+await writeFile(path.join(output, 'assets/js/site.js'), bundleScripts());
 await writeFile(path.join(output, 'index.html'), html);
 // Root HTML remains complete for tools and repository inspection. Always edit src.
 await writeFile(path.join(root, 'index.html'), html);

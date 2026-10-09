@@ -51,8 +51,20 @@ AGENTS.md                        Regra de nunca iniciar servidor local
 
 Todo o conteúdo é entregue no HTML de produção, sem depender de JavaScript
 para renderizar seções. O JS cuida das interações. Cormorant Garamond e Manrope
-são carregadas pelo Google Fonts com `display=swap` e fontes fallback.
+são hospedadas em `assets/fonts/`, com `font-display: swap`, preload e fontes
+fallback. Os arquivos WOFF2 variáveis mantêm os pesos utilizados e suas licenças
+OFL estão incluídas junto das fontes; não há conexão com Google Fonts em produção.
 O mapa depende do Google Maps, com iframe lazy loading.
+
+O CSS de `assets/css/styles.css` é incorporado ao HTML durante o build, sem
+comentários, eliminando a solicitação que bloqueava a primeira renderização.
+Para esta landing page, o custo é um HTML maior, comprimido pela hospedagem;
+o estilo também funciona quando JavaScript está desativado.
+`scripts/bundle.mjs` reúne os quatro módulos em `dist/assets/js/site.js`, carregado
+com `defer`, sem instalar bundler. Edite os módulos de origem, não o bundle.
+Os tratamentos armazenam medidas antes de atualizar controles e recalculam com
+ResizeObserver; depoimentos usam cards sobrepostos em CSS Grid para a altura
+acompanhar o maior conteúdo sem medições de layout em JavaScript.
 
 ## Substituir as imagens
 
