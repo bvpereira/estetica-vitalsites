@@ -695,3 +695,23 @@ html { scroll-padding-top: 24px; }
   .intro-photo img { position: absolute; inset: 0; }
   .intro-visual::before { border-radius: 110px 18px 110px 18px; }
 }
+
+/* One square gallery with a quiet crossfade, alongside the clinic amenities. */
+.clinic-showcase { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(36px, 6vw, 90px); align-items: center; padding-block: 32px 80px; }
+.clinic-showcase .gallery-component { grid-column: 1; grid-row: 1; padding: 0; min-width: 0; }
+.clinic-showcase .clinic-amenities { grid-column: 2; grid-row: 1; grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 0; gap: 50px 24px; }
+.gallery-fade-stage { position: relative; aspect-ratio: 1 / 1; overflow: hidden; border-radius: 18px; background: #e8ded5; }
+.gallery-fade-slide { position: absolute; inset: 0; margin: 0; opacity: 0; transition: opacity .65s ease; }
+.gallery-fade-slide.is-active { opacity: 1; }
+.gallery-fade-slide .gallery-photo { height: 100%; width: 100%; border-radius: 0; }
+.gallery-fade-slide figcaption { position: absolute; right: 16px; bottom: 16px; padding: 8px 14px; border-radius: 30px; background: #f7f3ef; color: var(--brown); font-size: 13px; }
+.animated-underline { position: relative; display: inline-block; padding-bottom: .12em; }
+.animated-underline::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: .09em; border-radius: 50% 20% 45% 25%; background: #b98c83; transform-origin: left; transform: scaleX(0) rotate(-1deg); }
+.differentials .is-visible .animated-underline::after { animation: care-underline 4s ease-in-out infinite; }
+@keyframes care-underline { 0%, 100% { transform: scaleX(0) rotate(-1deg); opacity: 0; } 20%, 65% { transform: scaleX(1) rotate(-1deg); opacity: 1; } 90% { transform: scaleX(0) rotate(-1deg); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .animated-underline::after { transform: scaleX(1) rotate(-1deg); opacity: 1; } }
+@media (max-width: 700px) {
+  .clinic-showcase { grid-template-columns: 1fr; gap: 48px; padding-bottom: 56px; }
+  .clinic-showcase .clinic-amenities { grid-column: 1; grid-row: 1; gap: 32px 20px; }
+  .clinic-showcase .gallery-component { grid-column: 1; grid-row: 2; }
+}

@@ -32,7 +32,7 @@ export function differentials() {
     ['heart', 'Acompanhamento próximo', 'Orientação antes, durante e depois de cada tratamento.'],
   ];
   return `<section class="differentials" aria-labelledby="differentials-title"><div class="section">
-    <div class="center-heading reveal">${eyebrow('Muito além de um procedimento')}<h2 id="differentials-title">Uma experiência de<br><em>cuidado completa</em></h2></div>
+    <div class="center-heading reveal">${eyebrow('Muito além de um procedimento')}<h2 id="differentials-title">Uma experiência de<br><em class="animated-underline">cuidado completa</em></h2></div>
     <div class="differentials-grid">${items.map(([symbol, title, description]) => `<article class="reveal">${icon(symbol)}<h3>${title}</h3><p>${description}</p></article>`).join('')}</div>
   </div></section>`;
 }

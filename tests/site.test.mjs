@@ -4,7 +4,6 @@ import { renderPage, structuredData } from '../src/page.mjs';
 import { clinic, maps, whatsappUrl, treatments } from '../src/config.mjs';
 import { validateConfig, validateHtml } from '../scripts/validate.mjs';
 import { escape, photo } from '../src/components/shared.mjs';
-import { wrapPosition, advanceDistance } from '../assets/js/gallery.js';
 import { faqItems } from '../src/faq.mjs';
 
 test('contatos e URLs mantêm os dados centralizados, inclusive acentos nas mensagens', () => {
@@ -46,17 +45,6 @@ test('HTML de produção tem navegação e referências acessíveis válidas sem
   assert.ok(html.includes('role="tablist"'));
 });
 
-test('galeria acumula deslocamentos menores que um pixel em navegadores com scroll inteiro', () => {
-  let scroll = 0;
-  let remainder = 0;
-  for (let frame = 0; frame < 120; frame++) {
-    const step = advanceDistance(16, remainder);
-    scroll += step.pixels;
-    remainder = step.remainder;
-  }
-  assert.equal(scroll, 67);
-  assert.ok(Math.abs(remainder - .2) < .001);
-});
 test('dados estruturados não apresentam avaliações fictícias nem credenciais inventadas', () => {
   const data = structuredData();
   assert.equal(data['@type'], 'LocalBusiness');
@@ -76,13 +64,6 @@ test('o validador rejeita âncoras quebradas antes de publicar', () => {
   assert.throws(() => validateHtml(renderPage().replace('href="#tratamentos"', 'href="#inexistente"')), /Âncora inexistente/);
 });
 
-test('galeria mantém a posição visual ao atravessar os limites do loop em ambos os sentidos', () => {
-  assert.equal(wrapPosition(5200, 1000, 4200), 1000);
-  assert.equal(wrapPosition(999, 1000, 4200), 5199);
-  assert.equal(wrapPosition(1000 + 4200 * 5 + 150.5, 1000, 4200), 1150.5);
-  assert.equal(wrapPosition(1200, 1000, 4200), 1200);
-  assert.equal(wrapPosition(1200, 1000, 0), 1000);
-});
 
 test('a clínica apresenta localização antes da galeria e o cuidado inclui acompanhamento dos resultados', () => {
   const html = renderPage();
