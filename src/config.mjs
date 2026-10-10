@@ -106,19 +106,97 @@ export const results = [
 ];
 
 export const gallery = [
-  ['Fachada', 'fachada da Aura Clínica Estética'],
-  ['Recepção', 'recepção elegante'],
-  ['Sala de Espera', 'sala de espera'],
-  ['Espaço de Avaliação', 'consultório de avaliação'],
-  ['Estética Facial', 'sala de procedimentos faciais'],
-  ['Estética Corporal', 'sala de procedimentos corporais'],
-  ['Detalhes da Aura', 'detalhes sofisticados da decoração'],
-  ['Tecnologia', 'equipamentos e tecnologia'],
-  ['Conforto', 'ambiente interno da clínica'],
-  ['Nossa Clínica', 'outro ângulo da clínica'],
-].map(([caption, description]) => ({
-  caption, image: { src: '', alt: `IMAGEM CLÍNICA: ${description}` },
-}));
+  {
+    "caption": "Fachada",
+    "image": {
+      "src": "/assets/images/galeria/fachada.webp",
+      "alt": "Fachada — galeria da clínica",
+      "width": 1024,
+      "height": 644
+    }
+  },
+  {
+    "caption": "Recepção",
+    "image": {
+      "src": "/assets/images/galeria/recepcao.webp",
+      "alt": "Recepção — galeria da clínica",
+      "width": 447,
+      "height": 447
+    }
+  },
+  {
+    "caption": "Sala de Espera",
+    "image": {
+      "src": "/assets/images/galeria/sala-espera.webp",
+      "alt": "Sala de Espera — galeria da clínica",
+      "width": 1024,
+      "height": 853
+    }
+  },
+  {
+    "caption": "Espaço de Avaliação",
+    "image": {
+      "src": "/assets/images/galeria/espaco-avaliacao.webp",
+      "alt": "Espaço de Avaliação — galeria da clínica",
+      "width": 1024,
+      "height": 1024
+    }
+  },
+  {
+    "caption": "Banheiro",
+    "image": {
+      "src": "/assets/images/galeria/banheiro.webp",
+      "alt": "Banheiro — galeria da clínica",
+      "width": 720,
+      "height": 720
+    }
+  },
+  {
+    "caption": "Atendimento",
+    "image": {
+      "src": "/assets/images/galeria/clinica.webp",
+      "alt": "Atendimento — galeria da clínica",
+      "width": 955,
+      "height": 725
+    }
+  },
+  {
+    "caption": "Cuidado Facial",
+    "image": {
+      "src": "/assets/images/galeria/cuidado-facial.webp",
+      "alt": "Cuidado Facial — galeria da clínica",
+      "width": 640,
+      "height": 480
+    }
+  },
+  {
+    "caption": "Ambiente da Clínica",
+    "image": {
+      "src": "/assets/images/galeria/ambiente-1.webp",
+      "alt": "Ambiente da Clínica — galeria da clínica",
+      "width": 640,
+      "height": 480
+    }
+  },
+  {
+    "caption": "Detalhes da Clínica",
+    "image": {
+      "src": "/assets/images/galeria/ambiente-2.webp",
+      "alt": "Detalhes da Clínica — galeria da clínica",
+      "width": 414,
+      "height": 462
+    }
+  },
+  {
+    "caption": "Espaço de Cuidado",
+    "image": {
+      "src": "/assets/images/galeria/ambiente-3.webp",
+      "alt": "Espaço de Cuidado — galeria da clínica",
+      "width": 555,
+      "height": 360
+    }
+  }
+];
 
 export const navigation = [
   ['inicio', 'Início'], ['tratamentos', 'Tratamentos'], ['sobre', 'Sobre'],
