@@ -704,6 +704,7 @@ html { scroll-padding-top: 24px; }
 .clinic-showcase { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(36px, 6vw, 90px); align-items: center; padding-block: 32px 80px; }
 .clinic-showcase .gallery-component { grid-column: 1; grid-row: 1; padding: 0; min-width: 0; }
 .clinic-showcase-info { grid-column: 2; grid-row: 1; min-width: 0; }
+.clinic-showcase-info .gallery-intro { margin-bottom: 64px; }
 .clinic-showcase .clinic-amenities { grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 0; gap: 50px 24px; }
 .gallery-fade-stage { position: relative; aspect-ratio: 1 / 1; overflow: hidden; border-radius: 18px; background: #e8ded5; }
 .gallery-fade-slide { position: absolute; inset: 0; margin: 0; opacity: 0; transition: opacity 1s ease-in-out !important; }
@@ -722,6 +723,7 @@ html { scroll-padding-top: 24px; }
 @media (max-width: 700px) {
   .clinic-showcase { grid-template-columns: 1fr; gap: 48px; padding-bottom: 56px; }
   .clinic-showcase-info { grid-column: 1; grid-row: 1; }
+  .clinic-showcase-info .gallery-intro { margin-bottom: 48px; }
   .clinic-showcase .clinic-amenities { gap: 32px 20px; }
   .clinic-showcase .gallery-component { grid-column: 1; grid-row: 2; }
 }
