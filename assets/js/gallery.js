@@ -13,7 +13,7 @@ export function initGallery(gallery) {
   }
   function refresh() {
     clearInterval(timer);
-    if (visible && !document.hidden) timer = setInterval(advance, 2000);
+    if (visible && !document.hidden) timer = setInterval(advance, 3000);
   }
   if ('IntersectionObserver' in window) {
     new IntersectionObserver(entries => {
