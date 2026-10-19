@@ -727,3 +727,11 @@ html { scroll-padding-top: 24px; }
   .clinic-showcase .clinic-amenities { gap: 32px 20px; }
   .clinic-showcase .gallery-component { grid-column: 1; grid-row: 2; }
 }
+
+.prototype-dialog { position: fixed; inset: 0; margin: auto; width: min(580px, calc(100vw - 32px)); max-height: calc(100dvh - 32px); overflow-y: auto; border: 1px solid var(--line); border-radius: 18px; padding: 58px 40px 36px; background: var(--cream); color: var(--brown); z-index: 100; box-shadow: 0 0 0 100vmax rgb(24 16 12 / 75%); }
+.prototype-dialog::backdrop { background: rgb(24 16 12 / 75%); }
+.prototype-dialog:modal { box-shadow: 0 20px 80px rgb(0 0 0 / 20%); }
+.prototype-dialog h2 { font-size: clamp(36px, 5vw, 48px); margin-bottom: 24px; }
+.prototype-dialog > p:not(.eyebrow) { font-size: 16px; line-height: 1.8; margin-bottom: 28px; }
+.prototype-dialog .dialog-close { position: absolute; top: 14px; right: 14px; background: var(--brown); color: var(--cream); }
+@media (max-width: 700px) { .prototype-dialog { padding: 64px 24px 28px; } .prototype-dialog .button { width: 100%; } }

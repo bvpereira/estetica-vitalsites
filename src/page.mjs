@@ -53,7 +53,14 @@ export function renderPage() {
   <script type="application/ld+json">${JSON.stringify(faqStructuredData()).replaceAll('<', '\\u003c')}</script>
   <script defer src="/assets/js/site.js"></script>
 </head>
-<body>
+<body class="dialog-open">
+<dialog open class="prototype-dialog" aria-labelledby="prototype-title" aria-describedby="prototype-description">
+  <button type="button" class="dialog-close round-button" data-prototype-close aria-label="Fechar aviso do protótipo" autofocus>×</button>
+  <p class="eyebrow">Projeto de portfólio</p>
+  <h2 id="prototype-title">Uma experiência de <em>demonstração</em></h2>
+  <p id="prototype-description">Este site foi desenvolvido exclusivamente como um protótipo para portfólio, para apresentar possibilidades de design e funcionalidades de uma clínica de estética. As informações, os depoimentos e as imagens são fictícios e/ou utilizados apenas para fins demonstrativos. O conteúdo não representa uma oferta real de serviços ou atendimento.</p>
+  <button type="button" class="button" data-prototype-close>Entendi, explorar o site</button>
+</dialog>
 <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
 <main id="conteudo">
 ${hero()}

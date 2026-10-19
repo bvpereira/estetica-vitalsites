@@ -3,6 +3,19 @@ import { initTreatments, initTreatmentDialogs, initTestimonials } from './carous
 import { initFaq } from './faq.js';
 
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+const prototypeDialog = document.querySelector('.prototype-dialog');
+if (prototypeDialog) {
+  // Upgrade the initially visible notice to a native modal with focus containment.
+  prototypeDialog.removeAttribute('open');
+  prototypeDialog.showModal();
+  prototypeDialog.querySelectorAll('[data-prototype-close]').forEach(button => {
+    button.addEventListener('click', () => prototypeDialog.close());
+  });
+  prototypeDialog.addEventListener('close', () => {
+    document.body.classList.remove('dialog-open');
+    document.querySelector('.hero-actions a')?.focus({ preventScroll: true });
+  });
+}
 // Range gives keyboard and assistive technology access; pointers control the full surface.
 document.querySelectorAll('[data-stage]').forEach(stage => {
   const range = stage.querySelector('[data-range]');
